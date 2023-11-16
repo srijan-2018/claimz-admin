@@ -165,8 +165,6 @@ const ShiftAdd = () => {
 					<Box
 						display='-webkit-inline-box'
 						borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-						pb='10px'
-						mb='15px'
 						width='170px'
 						pb='5px'
 						mb='20px'>

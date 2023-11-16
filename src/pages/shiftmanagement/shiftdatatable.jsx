@@ -76,7 +76,7 @@ const CssWrapper = styled.div`
 		margin-top: 5px;
 		padding-right: 9px;
 		overflow-y: scroll;
-		height: calc(100vh - 235px);
+		height: calc(100vh - 247px);
 	}
 `;
 
@@ -572,12 +572,6 @@ const ShiftDataTable = () => {
 			]);
 		};
 
-		// const removeFormField = (index) => {
-		//     const updatedFields = [...formFields];
-		//     updatedFields.splice(index, 1);
-		//     setFormFields(updatedFields);
-		// };
-
 		function toastCall() {
 			return toast({
 				title: 'Question List Updated Sucessfully',
@@ -619,6 +613,8 @@ const ShiftDataTable = () => {
 				setIsLoading(false);
 			}
 		};
+
+		console.log(formFields, 'formFields');
 
 		return (
 			<>
@@ -689,31 +685,35 @@ const ShiftDataTable = () => {
 												fontSize='18px'>
 												Set Shift Schedule Time :
 											</Heading>
-											<Button
-												bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-												boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-												borderRadius='5px'
-												p='18px 25px'
-												fontSize='1.6rem'
-												color='white'
-												_hover={{
-													bgGradient:
-														'linear(180deg, #2267A2 0%, #0D4675 100%)',
-												}}
-												_active={{
-													bgGradient:
-														'linear(180deg, #2267A2 0%, #0D4675 100%)',
-												}}
-												_focus={{
-													bgGradient:
-														'linear(180deg, #2267A2 0%, #0D4675 100%)',
-												}}
-												onClick={addFormField}>
-												<Text mr='10px'>
-													Add Others Day
-												</Text>
-												<i className='fa-solid fa-plus'></i>
-											</Button>
+											{formFields.length < 7 && (
+												<Button
+													bgGradient='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
+													boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+													borderRadius='5px'
+													p='18px 25px'
+													fontSize='1.6rem'
+													color='white'
+													_hover={{
+														bgGradient:
+															'linear(180deg, #2267A2 0%, #0D4675 100%)',
+													}}
+													_active={{
+														bgGradient:
+															'linear(180deg, #2267A2 0%, #0D4675 100%)',
+													}}
+													_focus={{
+														bgGradient:
+															'linear(180deg, #2267A2 0%, #0D4675 100%)',
+													}}
+													onClick={addFormField}>
+													<Text
+														mr='10px'
+														fontWeight='700'>
+														Add Others Day
+													</Text>
+													<i className='fa-solid fa-plus'></i>
+												</Button>
+											)}
 										</Box>
 										{formFields.map((field, index) => (
 											<FormControl mt='15px' key={index}>
