@@ -171,7 +171,7 @@ const ShiftDataTable = () => {
 
 	const ShiftBodyTemplate = (rowData) => {
 		const { isOpen, onOpen, onClose } = useDisclosure();
-		const [shiftId, setShiftId] = useState(rowData.shift_id);
+		const shiftId = rowData.shift_id;
 		const [shiftData, setShiftData] = useState();
 
 		const shiftView = async (e) => {
@@ -244,7 +244,9 @@ const ShiftDataTable = () => {
 												_active={{
 													bg: 'var(--chakra-colors-claimzMainGeadientColor)',
 												}}
-												_focus={{ bg: 'none' }}
+												_focus={{
+													bg: 'var(--chakra-colors-claimzMainGeadientColor)',
+												}}
 												mb='10px'>
 												<Box
 													as='span'
@@ -492,20 +494,25 @@ const ShiftDataTable = () => {
 	const ActionTemplate = (rowData) => {
 		const toast = useToast();
 		const { isOpen, onOpen, onClose } = useDisclosure();
-		const [shiftName, setShiftName] = useState();
-		const [formFields, setFormFields] = useState([
-			{
-				days: 'Monday',
-				in_time: '',
-				out_time: '',
-				grace_time: '',
-				half_day: '',
-				absent_time: '',
-				over_time: '',
-				early_leave_time: '',
-				check_in_time_available: '',
-			},
-		]);
+		const [shiftName, setShiftName] = useState(rowData.shift_name);
+		const shiftId = rowData.shift_id;
+		const [shiftData, setShiftData] = useState();
+
+		const shiftView = async (e) => {
+			e.preventDefault();
+			onOpen();
+			const response = await fetch(
+				`${process.env.REACT_APP_API_URL}/shift-time/${shiftId}`,
+				{
+					method: 'GET',
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+				}
+			);
+			const data = await response.json();
+			setShiftData(data.data);
+		};
 
 		const showToast = (
 			status = 'success',
@@ -525,7 +532,7 @@ const ShiftDataTable = () => {
 
 			if (name == 'days') {
 				let foundFlag = false;
-				formFields.map((item) => {
+				shiftData.map((item) => {
 					if (item.days == value) {
 						foundFlag = true;
 					}
@@ -534,14 +541,14 @@ const ShiftDataTable = () => {
 				if (foundFlag) {
 					showToast('error', 'You have already selected the day.');
 				} else {
-					const updatedFields = [...formFields];
+					const updatedFields = [...shiftData];
 					updatedFields[index][name] = value;
-					setFormFields(updatedFields);
+					setShiftData(updatedFields);
 				}
 			} else {
-				const updatedFields = [...formFields];
+				const updatedFields = [...shiftData];
 				updatedFields[index][name] = value;
-				setFormFields(updatedFields);
+				setShiftData(updatedFields);
 			}
 		};
 
@@ -555,9 +562,9 @@ const ShiftDataTable = () => {
 				'Saturday',
 				'Sunday',
 			];
-			let nextDay = weekDays[formFields.length];
-			setFormFields([
-				...formFields,
+			let nextDay = weekDays[shiftData.length];
+			setShiftData([
+				...shiftData,
 				{
 					days: nextDay,
 					in_time: '',
@@ -580,13 +587,18 @@ const ShiftDataTable = () => {
 				isClosable: true,
 			});
 		}
+		const handleDeleteField = (index) => {
+			const updatedShiftData = [...shiftData];
+			updatedShiftData.splice(index, 1);
+			setShiftData(updatedShiftData);
+		};
 
 		const updateQuestion = async (e) => {
 			e.preventDefault();
 			const fromValues = new FormData();
 			fromValues.append('shift_name', shiftName);
 			fromValues.append('shift_id', rowData.shift_id);
-			fromValues.append('times', JSON.stringify(formFields));
+			fromValues.append('times', JSON.stringify(shiftData));
 
 			try {
 				setIsLoading(true);
@@ -614,16 +626,14 @@ const ShiftDataTable = () => {
 			}
 		};
 
-		console.log(formFields, 'formFields');
-
 		return (
 			<>
 				<Button
-					onClick={onOpen}
+					onClick={shiftView}
 					bg='none'
 					_hover={{ bg: 'none' }}
 					_active={{ bg: 'none' }}>
-					<i className='fa-solid fa-pen'></i>
+					<i className='fa-solid fa-pen fa-2x'></i>
 				</Button>
 
 				<Drawer
@@ -667,6 +677,7 @@ const ShiftDataTable = () => {
 											<FormLabel> Shift Name</FormLabel>
 											<Input
 												type='text'
+												value={shiftName}
 												onChange={(e) =>
 													setShiftName(e.target.value)
 												}
@@ -685,7 +696,7 @@ const ShiftDataTable = () => {
 												fontSize='18px'>
 												Set Shift Schedule Time :
 											</Heading>
-											{formFields.length < 7 && (
+											{shiftData?.length < 7 && (
 												<Button
 													bgGradient='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 													boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
@@ -715,7 +726,7 @@ const ShiftDataTable = () => {
 												</Button>
 											)}
 										</Box>
-										{formFields.map((field, index) => (
+										{shiftData?.map((field, index) => (
 											<FormControl mt='15px' key={index}>
 												<Box>
 													<Box
@@ -841,7 +852,10 @@ const ShiftDataTable = () => {
 																}
 															/>
 														</FormControl>
-														<FormControl width='19%'>
+														<FormControl
+															width='19%'
+															display='flex'
+															gap='10px'>
 															<Button
 																width='100%'
 																bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
@@ -876,6 +890,35 @@ const ShiftDataTable = () => {
 																) : (
 																	<i className='fa-solid fa-plus'></i>
 																)}
+															</Button>
+
+															<Button
+																width='100%'
+																bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+																boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+																borderRadius='5px'
+																p='18px 10px'
+																fontSize='1.6rem'
+																color='white'
+																mt='26px'
+																onClick={() =>
+																	handleDeleteField(
+																		index
+																	)
+																}
+																_hover={{
+																	bgGradient:
+																		'linear(180deg, #2267A2 0%, #0D4675 100%)',
+																}}
+																_active={{
+																	bgGradient:
+																		'linear(180deg, #2267A2 0%, #0D4675 100%)',
+																}}
+																_focus={{
+																	bgGradient:
+																		'linear(180deg, #2267A2 0%, #0D4675 100%)',
+																}}>
+																<i class='fa-solid fa-trash'></i>
 															</Button>
 														</FormControl>
 													</Box>

@@ -271,7 +271,6 @@ const WeekofVariant = () => {
 									}}>
 									<FormLabel>Regular Variant</FormLabel>
 									<MultiSelect
-										disabled={weekDays ? true : false}
 										value={selectedDay}
 										onChange={(e) =>
 											setSelectedDay(e.value)
@@ -286,7 +285,6 @@ const WeekofVariant = () => {
 									<FormLabel>Alternative Variant</FormLabel>
 									<Select
 										bg='white'
-										isDisabled={selectedDay ? true : false}
 										color='#6c757d'
 										placeholder='Select option'
 										onChange={(event) =>

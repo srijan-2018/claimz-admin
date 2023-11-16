@@ -69,7 +69,6 @@ const Login = () => {
 					'user',
 					window.btoa(JSON.stringify(roles))
 				);
-				console.log('roles', roles);
 				setLoading(false);
 			} else if (response.status === 401) {
 				toastCall();
