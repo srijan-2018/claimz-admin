@@ -918,7 +918,7 @@ const ShiftDataTable = () => {
 																	bgGradient:
 																		'linear(180deg, #2267A2 0%, #0D4675 100%)',
 																}}>
-																<i class='fa-solid fa-trash'></i>
+																<i className='fa-solid fa-trash'></i>
 															</Button>
 														</FormControl>
 													</Box>

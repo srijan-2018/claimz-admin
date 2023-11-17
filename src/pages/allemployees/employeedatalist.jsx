@@ -973,6 +973,8 @@ const EmployeeDataList = () => {
 			}
 		};
 
+		const document = userData?.documents;
+
 		return (
 			<>
 				<Button
@@ -980,7 +982,7 @@ const EmployeeDataList = () => {
 					bg='none'
 					_hover={{ bg: 'none' }}
 					_active={{ bg: 'none' }}>
-					<i className='fa-solid fa-pen-to-square fa-2x'></i>
+					<i className='fa-solid fa-pen fa-2x'></i>
 				</Button>
 
 				<Drawer
@@ -1400,6 +1402,212 @@ const EmployeeDataList = () => {
 		);
 	};
 
+	const DocumentTemplate = (rowData) => {
+		const token = localStorage.getItem('token');
+		const empId = rowData.id;
+		const [modalImageSrc, setModalImageSrc] = useState('');
+		const { isOpen, onOpen, onClose } = useDisclosure();
+		const {
+			isOpen: modalIsOpen,
+			onOpen: modalOnOpen,
+			onClose: modalOnClose,
+		} = useDisclosure();
+
+		const handleDocDownload = (imageUrl, fileName) => {
+			console.log(
+				imageUrl,
+				fileName,
+				'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
+			);
+			// const link = document.createElement('a');
+			// link.href = imageUrl;
+			// link.download = fileName;
+			// document.body.appendChild(link);
+			// link.click();
+			// document.body.removeChild(link);
+		};
+
+		const updateModalImageSrc = (imageSrc) => {
+			setModalImageSrc(imageSrc);
+			modalOnOpen(); // Open the modal
+		};
+
+		const formDataValue = async (e) => {
+			e.preventDefault();
+			onOpen();
+			try {
+				setFromLoader(true);
+				const response = await fetch(
+					`${process.env.REACT_APP_API_URL}/emp-details/${empId}`,
+					{
+						method: 'GET',
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
+
+				if (response.ok) {
+					const data = await response.json();
+					setUserData(data);
+					setFromLoader(false);
+				} else {
+					navigate('/login');
+				}
+			} catch (error) {
+				navigate('/login');
+			}
+		};
+
+		const document = userData?.documents;
+
+		return (
+			<>
+				<Button
+					onClick={formDataValue}
+					bg='none'
+					_hover={{ bg: 'none' }}
+					_active={{ bg: 'none' }}>
+					<i className='fa-solid fa-file fa-2x'></i>
+				</Button>
+
+				<Drawer
+					isOpen={isOpen}
+					placement='right'
+					onClose={onClose}
+					size='xl'>
+					<DrawerOverlay />
+					<DrawerContent
+						maxW='60% !important'
+						bgGradient='linear(180deg, #DCF9FF 0%, #FFFFFF 100%)'>
+						<DrawerCloseButton size='lg' />
+						<DrawerHeader pt='28px'>
+							<Box
+								display='-webkit-inline-box'
+								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
+								pb='10px'
+								mb='15px'>
+								<Text
+									background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
+									backgroundClip='text'
+									fontWeight='700'
+									fontSize='28px'
+									lineHeight='36px'>
+									{rowData.emp_name} Employee Document View
+								</Text>
+							</Box>
+						</DrawerHeader>
+
+						<DrawerBody>
+							<Box>
+								{fromLoader ? (
+									<Box
+										width='100%'
+										height='calc(100vh - 172px)'
+										display='flex'
+										alignItems='center'
+										justifyContent='center'>
+										<Image src={Loader} alt='Loader' />
+									</Box>
+								) : (
+									<>
+										<Box>
+											{document &&
+												typeof document === 'object' &&
+												Object.keys(document).map(
+													(key, index) => (
+														<Box
+															display='flex'
+															gap='10px'
+															alignItems='center'
+															justifyContent='space-between'
+															bg='gray.300'
+															p='10px'
+															marginBottom='15px'
+															borderRadius='10px'>
+															<Text
+																key={index}
+																mb='10px'
+																fontSize='1.6rem'
+																fontWeight='600'
+																color='claimzTextBlueColor'
+																borderRadius='5px'
+																onClick={() =>
+																	updateModalImageSrc(
+																		document[
+																			key
+																		]
+																	)
+																} // Pass document[key] as image source
+																cursor='pointer'>
+																<i className='fa-solid fa-image'></i>{' '}
+																- {key} -{' '}
+																{document[key]}
+															</Text>
+															<Link
+																to={
+																	document[
+																		key
+																	]
+																}
+																target='blank'
+																download>
+																<i className='fa-solid fa-download'></i>
+															</Link>
+														</Box>
+													)
+												)}
+										</Box>
+
+										<Modal
+											onClose={modalOnClose}
+											isOpen={modalIsOpen}
+											isCentered>
+											<ModalOverlay />
+											<ModalContent
+												minW='50%'
+												h='70vh'
+												p='0px'>
+												<ModalHeader p='0px'>
+													<Box
+														bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
+														boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+														color='white'
+														padding='10px 15px'>
+														<Heading>
+															Document Preview
+														</Heading>
+													</Box>
+												</ModalHeader>
+												<ModalCloseButton
+													color='white'
+													mt='10px'
+												/>
+												<ModalBody>
+													<Box
+														width='100%'
+														height='60vh'
+														overflowY='scroll'>
+														<Image
+															src={modalImageSrc} // Set the image source from modalImageSrc
+															alt='Modal Image'
+															width='100%'
+															loading='lazy'
+														/>
+													</Box>
+												</ModalBody>
+											</ModalContent>
+										</Modal>
+									</>
+								)}
+							</Box>
+						</DrawerBody>
+					</DrawerContent>
+				</Drawer>
+			</>
+		);
+	};
+
 	const StatusTemplate = (rowData) => {
 		return (
 			<Box>
@@ -1467,13 +1675,16 @@ const EmployeeDataList = () => {
 							header='Status'
 							body={StatusTemplate}
 							bodyStyle={{ textAlign: 'center' }}
-							style={{ width: '14%' }}
 						/>
 						<Column
-							header='Action'
+							header='Edit'
 							body={ActionTemplate}
 							bodyStyle={{ textAlign: 'center' }}
-							style={{ width: '14%' }}
+						/>
+						<Column
+							header='View'
+							body={DocumentTemplate}
+							bodyStyle={{ textAlign: 'center' }}
 						/>
 					</DataTable>
 					{/* pegination */}
