@@ -140,7 +140,6 @@ const PtaxSlab = () => {
 
 	const renderHeader = () => {
 		const value = filters['global'] ? filters['global'].value : '';
-
 		return (
 			<Box
 				display='flex'

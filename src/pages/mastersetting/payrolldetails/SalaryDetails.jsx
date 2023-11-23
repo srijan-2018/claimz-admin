@@ -195,7 +195,6 @@ const SalaryDetails = () => {
 			JSON.stringify(earningComponents)
 		);
 		earningComponentsObj[key].input = inputVal;
-
 		const parentKey = earningComponentsObj[key].percentage_of;
 		const parentValue =
 			parentKey > 0 ? earningComponentsObj[parentKey].input : CTC;

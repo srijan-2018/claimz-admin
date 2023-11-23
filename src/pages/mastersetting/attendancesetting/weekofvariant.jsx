@@ -313,7 +313,6 @@ const WeekofVariant = () => {
 								}}>
 								<FormLabel>Alternative Week Off</FormLabel>
 								<MultiSelect
-									disabled={selectedDay ? true : false}
 									value={selectedWeeks}
 									onChange={(e) => setSelectedWeeks(e.value)}
 									options={weeks}
