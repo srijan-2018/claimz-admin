@@ -982,7 +982,7 @@ const EmployeeDataList = () => {
 					bg='none'
 					_hover={{ bg: 'none' }}
 					_active={{ bg: 'none' }}>
-					<i className='fa-solid fa-pen fa-2x'></i>
+					<i class='fa-solid fa-pen fa-2x'></i>
 				</Button>
 
 				<Drawer
@@ -1413,18 +1413,32 @@ const EmployeeDataList = () => {
 			onClose: modalOnClose,
 		} = useDisclosure();
 
-		const handleDocDownload = (imageUrl, fileName) => {
+		const handleDocDownload = (fileName = '', imageUrl = '') => {
 			console.log(
 				imageUrl,
 				fileName,
 				'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'
 			);
-			// const link = document.createElement('a');
-			// link.href = imageUrl;
-			// link.download = fileName;
-			// document.body.appendChild(link);
-			// link.click();
-			// document.body.removeChild(link);
+			let docFileNameArr = imageUrl
+				.toString()
+				.split('/')
+				.pop()
+				.split('.');
+
+			if (docFileNameArr.length > 1 && docFileNameArr.pop().length > 1) {
+				console.log('Ready to download the document.');
+				// const link = window.document.createElement('a');
+				// link.href = imageUrl;
+				// link.download = fileName;
+				// window.document.body.appendChild(link);
+				// link.click();
+				// window.document.body.removeChild(link);
+				window.open(imageUrl, '_blank');
+			} else {
+				console.log(
+					'Invalid file url, please try to download another file!'
+				);
+			}
 		};
 
 		const updateModalImageSrc = (imageSrc) => {
@@ -1468,7 +1482,7 @@ const EmployeeDataList = () => {
 					bg='none'
 					_hover={{ bg: 'none' }}
 					_active={{ bg: 'none' }}>
-					<i className='fa-solid fa-file fa-2x'></i>
+					<i class='fa-solid fa-file fa-2x'></i>
 				</Button>
 
 				<Drawer
@@ -1499,7 +1513,7 @@ const EmployeeDataList = () => {
 						</DrawerHeader>
 
 						<DrawerBody>
-							<Box>
+							<Box mt='20px'>
 								{fromLoader ? (
 									<Box
 										width='100%'
@@ -1516,21 +1530,15 @@ const EmployeeDataList = () => {
 												typeof document === 'object' &&
 												Object.keys(document).map(
 													(key, index) => (
-														<Box
-															display='flex'
-															gap='10px'
-															alignItems='center'
-															justifyContent='space-between'
-															bg='gray.300'
-															p='10px'
-															marginBottom='15px'
-															borderRadius='10px'>
+														<>
 															<Text
 																key={index}
 																mb='10px'
 																fontSize='1.6rem'
 																fontWeight='600'
 																color='claimzTextBlueColor'
+																bg='gray.300'
+																p='10px'
 																borderRadius='5px'
 																onClick={() =>
 																	updateModalImageSrc(
@@ -1544,17 +1552,18 @@ const EmployeeDataList = () => {
 																- {key} -{' '}
 																{document[key]}
 															</Text>
-															<Link
-																to={
-																	document[
-																		key
-																	]
-																}
-																target='blank'
-																download>
-																<i className='fa-solid fa-download'></i>
-															</Link>
-														</Box>
+															<Button
+																onClick={() =>
+																	handleDocDownload(
+																		key,
+																		document[
+																			key
+																		]
+																	)
+																}>
+																Download
+															</Button>
+														</>
 													)
 												)}
 										</Box>
