@@ -71,15 +71,12 @@ const SalaryDetails = () => {
 	useEffect(() => {
 		let token = localStorage.getItem('token');
 
-		fetch(
-			`${process.env.REACT_APP_API_URL}/salary-details-value/${empid}`,
-			{
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-				method: 'GET',
-			}
-		)
+		fetch(`${process.env.REACT_APP_API_URL}/salary-details/${empid}`, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+			method: 'GET',
+		})
 			.then((response) => response.json())
 			.then((data) => {
 				setEmpDetails(data);
@@ -148,7 +145,7 @@ const SalaryDetails = () => {
 		data.earning_components.map((row) => {
 			console.log(data, 'data');
 			tempEarning[row.salary_component_id] = row;
-			tempEarning[row.salary_component_id]['input'] = row.amount;
+			tempEarning[row.salary_component_id]['input'] = 0;
 			tempEarning[row.salary_component_id]['inputPercentage'] =
 				row.percentage;
 		});
@@ -159,7 +156,7 @@ const SalaryDetails = () => {
 		let tempDeduction = {};
 		data.deduction_components.map((row) => {
 			tempDeduction[row.salary_component_id] = row;
-			tempDeduction[row.salary_component_id]['input'] = row.amount;
+			tempDeduction[row.salary_component_id]['input'] = 0;
 			tempDeduction[row.salary_component_id]['inputPercentage'] =
 				row.percentage;
 		});
@@ -170,7 +167,7 @@ const SalaryDetails = () => {
 		let tempDeduction = {};
 		data.perquisits_components.map((row) => {
 			tempDeduction[row.salary_component_id] = row;
-			tempDeduction[row.salary_component_id]['input'] = row.amount;
+			tempDeduction[row.salary_component_id]['input'] = 0;
 			tempDeduction[row.salary_component_id]['inputPercentage'] =
 				row.percentage;
 		});
@@ -181,7 +178,7 @@ const SalaryDetails = () => {
 		let tempDeduction = {};
 		data.profit_components.map((row) => {
 			tempDeduction[row.salary_component_id] = row;
-			tempDeduction[row.salary_component_id]['input'] = row.amount;
+			tempDeduction[row.salary_component_id]['input'] = 0;
 			tempDeduction[row.salary_component_id]['inputPercentage'] =
 				row.percentage;
 		});
