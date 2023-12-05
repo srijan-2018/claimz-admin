@@ -509,7 +509,10 @@ const PayslipList = () => {
 									p='10px 0px'>
 									<Box>
 										<Heading mb='10px'>
-											{payslipData.company_name}
+											{payslipData.company_name ===
+												'null' || 'undefined'
+												? ''
+												: payslipData.company_name}
 										</Heading>
 										<Text fontWeight='600' mb='5px'>
 											{payslipData.company_address ===
@@ -530,15 +533,27 @@ const PayslipList = () => {
 							<Box p='10px 0px'>
 								<Box>
 									<Text fontWeight='600' mb='5px'>
-										{payslipData.payment_date}
+										{payslipData.payment_date === 'null' ||
+										'undefined'
+											? ''
+											: payslipData.payment_date}
 									</Text>
 									<Text fontWeight='600' mb='5px'>
-										{payslipData.emp_name},{' '}
-										{payslipData.emp_code}
+										{payslipData.emp_name === 'null' ||
+										'undefined'
+											? ''
+											: payslipData.emp_name}
+										{payslipData.emp_code === 'null' ||
+										'undefined'
+											? ''
+											: payslipData.emp_code}
 									</Text>
 									<Text mb='10px'>
 										System | Date of joining:{' '}
-										{payslipData.date_of_joining}
+										{payslipData.date_of_joining ===
+											'null' || 'undefined'
+											? ''
+											: payslipData.date_of_joining}
 									</Text>
 								</Box>
 								<Box display='flex' m='50px 0px 20px'>
@@ -568,7 +583,12 @@ const PayslipList = () => {
 										<Text fontWeight='600' mb='5px'>
 											Bank account no.
 										</Text>
-										<Text>{payslipData.account_no}</Text>
+										<Text>
+											{payslipData.account_no ===
+												'null' || 'undefined'
+												? 'No Account Number'
+												: payslipData.account_no}
+										</Text>
 									</Box>
 									<Box w='25%'>
 										<Text fontWeight='600' mb='5px'>
@@ -620,14 +640,16 @@ const PayslipList = () => {
 																}
 															</Td>
 															<Td p='15px'>
-																{
+																{Number(
 																	data.component_amount
-																}
+																).toFixed(2)}
 															</Td>
 															<Td
 																p='15px'
 																textAlign='right'>
-																{data.ytd}
+																{Number(
+																	data.ytd
+																).toFixed(2)}
 															</Td>
 														</Tr>
 													);
@@ -667,14 +689,16 @@ const PayslipList = () => {
 																}
 															</Td>
 															<Td p='15px'>
-																{
+																{Number(
 																	data.component_amount
-																}
+																).toFixed(2)}
 															</Td>
 															<Td
 																p='15px'
 																textAlign='right'>
-																{data.ytd}
+																{Number(
+																	data.ytd
+																).toFixed(2)}
 															</Td>
 														</Tr>
 													);
@@ -694,7 +718,10 @@ const PayslipList = () => {
 											<Td
 												fontSize='1.7rem'
 												fontWeight='700'>
-												₹{payslipData.gross}
+												₹
+												{Number(
+													payslipData.gross
+												).toFixed(2)}
 											</Td>
 											<Td
 												fontSize='1.7rem'
@@ -705,7 +732,10 @@ const PayslipList = () => {
 											<Td
 												fontSize='1.7rem'
 												fontWeight='700'>
-												₹{payslipData.total_deduction}
+												₹
+												{Number(
+													payslipData.total_deduction
+												).toFixed(2)}
 											</Td>
 										</Tr>
 									</Tbody>
@@ -720,7 +750,8 @@ const PayslipList = () => {
 									textAlign='center'>
 									<Text>
 										<Box as='span' fontWeight='600'>
-											Total Net Payable ₹{earning}{' '}
+											Total Net Payable ₹
+											{Number(earning).toFixed(2)}{' '}
 										</Box>
 										({result})<br />
 										Total Net Payable= Gross Earnings -
