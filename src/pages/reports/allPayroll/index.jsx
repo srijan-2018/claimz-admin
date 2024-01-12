@@ -101,8 +101,7 @@ const AllPayrollReportView = () => {
 					borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
 					pb='10px'
 					mb='15px'
-					width='350px'
-					pb='5px'>
+					width='275px'>
 					<Text
 						background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
 						backgroundClip='text'
@@ -141,11 +140,13 @@ const AllPayrollReportView = () => {
 					<FormControl mr={3}>
 						<FormLabel htmlFor='endDate'>Select Year</FormLabel>
 						<Select placeholder='Select Year' onChange={selectYear}>
+							<option value='2025'>2025</option>
+							<option value='2024'>2024</option>
 							<option value='2023'>2023</option>
 							<option value='2022'>2022</option>
 							<option value='2021'>2021</option>
 							<option value='2020'>2020</option>
-							<option value='2013'>2019</option>
+							<option value='2019'>2019</option>
 						</Select>
 					</FormControl>
 

@@ -144,9 +144,7 @@ const SalaryDetails = () => {
 
 	const separateTheComponents = (data) => {
 		let tempEarning = {};
-
 		data.earning_components.map((row) => {
-			console.log(data, 'data');
 			tempEarning[row.salary_component_id] = row;
 			tempEarning[row.salary_component_id]['input'] = row.amount;
 			tempEarning[row.salary_component_id]['inputPercentage'] =
@@ -586,659 +584,597 @@ const SalaryDetails = () => {
 	};
 
 	return (
-		<Card>
-			<CardBody width='100%'>
+		<Box width='100%'>
+			<Box>
 				<Box>
-					<Box>
-						<Box
-							width='100%'
-							display='flex'
-							alignItems='center'
-							justifyContent='space-between'
-							bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
-							boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-							color='white'
-							padding='10px 15px'
-							mb='20px'>
-							<Heading>Add Salary Details :</Heading>
-							<Link to='/master-setting/payroll-details'>
-								<Button
-									bg='white'
-									boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-									borderRadius='10px'
-									p='20px'
-									fontSize='1.6rem'
-									color='var(--chakra-colors-claimzTextBlueColor)'
-									type='submit'
-									_hover={{
-										bg: 'white',
-									}}
-									_active={{
-										bg: 'white',
-									}}
-									_focus={{
-										bg: 'white',
-									}}>
-									<i className='fa-solid fa-backward'></i>{' '}
-									<Box ml='5px'>Payroll Details</Box>
-								</Button>
-							</Link>
-						</Box>
-						<Grid templateColumns='repeat(3, 1fr)' gap={6}>
-							<FormControl>
-								<FormLabel>Employee Name</FormLabel>
-								<Input
-									type='text'
-									placeholder='Employee Name'
-									value={employeeName}
-									onChange={(e) =>
-										setEmployeeName(e.target.value)
-									}
-									readOnly
-								/>
-							</FormControl>
-							<FormControl>
-								<FormLabel>Employee Code</FormLabel>
-								<Input
-									type='text'
-									placeholder='Employee Code'
-									value={employeeCode}
-									onChange={(e) =>
-										setEmployeeCode(e.target.value)
-									}
-									readOnly
-								/>
-							</FormControl>
-							<FormControl>
-								<FormLabel>Date of Joining</FormLabel>
-								<Input
-									type='date'
-									placeholder='Date of Joining'
-									value={dateOfJoining}
-									onChange={(e) =>
-										setDateOfJoining(e.target.value)
-									}
-									readOnly
-								/>
-							</FormControl>
-							<FormControl>
-								<FormLabel>Account Number</FormLabel>
-								<Input
-									type='text'
-									placeholder='Account Number'
-									value={accountNumber}
-									onChange={(e) =>
-										setAccountNumber(e.target.value)
-									}
-									readOnly
-								/>
-							</FormControl>
-							<FormControl>
-								<FormLabel>PF A/C Number</FormLabel>
-								<Input
-									type='text'
-									placeholder='PF A/C Number'
-									value={PFNumber}
-									onChange={(e) =>
-										setPFNumber(e.target.value)
-									}
-								/>
-							</FormControl>
-							<FormControl>
-								<FormLabel>UAN Number</FormLabel>
-								<Input
-									type='text'
-									placeholder='UAN Number'
-									value={UANNumber}
-									onChange={(e) =>
-										setUANNumber(e.target.value)
-									}
-								/>
-							</FormControl>
-							<FormControl>
-								<FormLabel>ESI Number</FormLabel>
-								<Input
-									type='text'
-									placeholder='ESI Number'
-									value={ESINumber}
-									onChange={(e) =>
-										setESINumber(e.target.value)
-									}
-								/>
-							</FormControl>
-							<FormControl>
-								<FormLabel>Company Name</FormLabel>
-								<Input
-									type='text'
-									placeholder='Company Name'
-									value={companyName}
-									onChange={(e) =>
-										setCompanyName(e.target.value)
-									}
-								/>
-							</FormControl>
-							<FormControl>
-								<FormLabel>Company Address</FormLabel>
-								<Input
-									type='text'
-									placeholder='Company Address'
-									value={companyAddress}
-									onChange={(e) =>
-										setCompanyAddress(e.target.value)
-									}
-								/>
-							</FormControl>
-							<FormControl>
-								<FormLabel>Company Logo</FormLabel>
-								<Input
-									type='file'
-									placeholder='Logo'
-									p='0px'
-									onChange={(e) =>
-										setCompanyLogo(e.target.files[0])
-									}
-									sx={{
-										'::file-selector-button': {
-											borderTop: 'none',
-											borderLeft: 'none',
-											borderBottom: 'none',
-											borderRight: '1px solid',
-											borderRightColor:
-												'var(--chakra-colors-inputStrokeColor);',
-											outline: 'none',
-											mr: 2,
-											p: '12px 14px',
-											color: 'var(--chakra-colors-inputplaceholderColor)',
-											backgroundColor: '#f3f3f3',
-											lineHeight: '12px',
-										},
-									}}
-								/>
-							</FormControl>
-							<Divider orientation='vertical' />
-							<Divider orientation='vertical' />
+					<Box
+						width='100%'
+						display='flex'
+						alignItems='center'
+						justifyContent='space-between'
+						bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
+						boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+						color='white'
+						padding='10px 15px'
+						mb='20px'>
+						<Heading>Add Salary Details :</Heading>
+						<Link to='/master-setting/payroll-details'>
+							<Button
+								bg='white'
+								boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+								borderRadius='10px'
+								p='20px'
+								fontSize='1.6rem'
+								color='var(--chakra-colors-claimzTextBlueColor)'
+								type='submit'
+								_hover={{
+									bg: 'white',
+								}}
+								_active={{
+									bg: 'white',
+								}}
+								_focus={{
+									bg: 'white',
+								}}>
+								<i className='fa-solid fa-backward'></i>{' '}
+								<Box ml='5px'>Payroll Details</Box>
+							</Button>
+						</Link>
+					</Box>
+					<Grid templateColumns='repeat(3, 1fr)' gap={6}>
+						<FormControl>
+							<FormLabel>Employee Name</FormLabel>
+							<Input
+								type='text'
+								placeholder='Employee Name'
+								value={employeeName}
+								onChange={(e) =>
+									setEmployeeName(e.target.value)
+								}
+								readOnly
+							/>
+						</FormControl>
+						<FormControl>
+							<FormLabel>Employee Code</FormLabel>
+							<Input
+								type='text'
+								placeholder='Employee Code'
+								value={employeeCode}
+								onChange={(e) =>
+									setEmployeeCode(e.target.value)
+								}
+								readOnly
+							/>
+						</FormControl>
+						<FormControl>
+							<FormLabel>Date of Joining</FormLabel>
+							<Input
+								type='date'
+								placeholder='Date of Joining'
+								value={dateOfJoining}
+								onChange={(e) =>
+									setDateOfJoining(e.target.value)
+								}
+								readOnly
+							/>
+						</FormControl>
+						<FormControl>
+							<FormLabel>Account Number</FormLabel>
+							<Input
+								type='text'
+								placeholder='Account Number'
+								value={accountNumber}
+								onChange={(e) =>
+									setAccountNumber(e.target.value)
+								}
+								readOnly
+							/>
+						</FormControl>
+						<FormControl>
+							<FormLabel>PF A/C Number</FormLabel>
+							<Input
+								type='text'
+								placeholder='PF A/C Number'
+								value={PFNumber}
+								onChange={(e) => setPFNumber(e.target.value)}
+							/>
+						</FormControl>
+						<FormControl>
+							<FormLabel>UAN Number</FormLabel>
+							<Input
+								type='text'
+								placeholder='UAN Number'
+								value={UANNumber}
+								onChange={(e) => setUANNumber(e.target.value)}
+							/>
+						</FormControl>
+						<FormControl>
+							<FormLabel>ESI Number</FormLabel>
+							<Input
+								type='text'
+								placeholder='ESI Number'
+								value={ESINumber}
+								onChange={(e) => setESINumber(e.target.value)}
+							/>
+						</FormControl>
+						<FormControl>
+							<FormLabel>Company Name</FormLabel>
+							<Input
+								type='text'
+								placeholder='Company Name'
+								value={companyName}
+								onChange={(e) => setCompanyName(e.target.value)}
+							/>
+						</FormControl>
+						<FormControl>
+							<FormLabel>Company Address</FormLabel>
+							<Input
+								type='text'
+								placeholder='Company Address'
+								value={companyAddress}
+								onChange={(e) =>
+									setCompanyAddress(e.target.value)
+								}
+							/>
+						</FormControl>
+						<FormControl>
+							<FormLabel>Company Logo</FormLabel>
+							<Input
+								type='file'
+								placeholder='Logo'
+								p='0px'
+								onChange={(e) =>
+									setCompanyLogo(e.target.files[0])
+								}
+								sx={{
+									'::file-selector-button': {
+										borderTop: 'none',
+										borderLeft: 'none',
+										borderBottom: 'none',
+										borderRight: '1px solid',
+										borderRightColor:
+											'var(--chakra-colors-inputStrokeColor);',
+										outline: 'none',
+										mr: 2,
+										p: '12px 14px',
+										color: 'var(--chakra-colors-inputplaceholderColor)',
+										backgroundColor: '#f3f3f3',
+										lineHeight: '12px',
+									},
+								}}
+							/>
+						</FormControl>
+						<Divider orientation='vertical' />
+						<Divider orientation='vertical' />
+						<FormControl>
+							<FormLabel
+								fontSize='1.8rem !important'
+								fontWeight='600'
+								color='var(--chakra-colors-claimzTextBlueColor)'>
+								Monthly CTC :
+							</FormLabel>
+							<Input
+								type='number'
+								placeholder='Enter Monthly CTC'
+								className='handleScroll'
+								value={CTC}
+								onChange={handleCTC}
+							/>
+						</FormControl>
+						{updatedCtc > 1 && (
 							<FormControl>
 								<FormLabel
 									fontSize='1.8rem !important'
 									fontWeight='600'
 									color='var(--chakra-colors-claimzTextBlueColor)'>
-									Monthly CTC :
+									Updated Monthly CTC :
 								</FormLabel>
 								<Input
 									type='number'
-									placeholder='Enter Monthly CTC'
 									className='handleScroll'
-									value={CTC}
-									onChange={handleCTC}
+									value={updatedCtc}
+									readOnly
 								/>
 							</FormControl>
-							{updatedCtc > 1 && (
+						)}
+						{/* <p>Total: <span>{CTC - totalEarningSum.toFixed(2)}</span></p> */}
+						{Object.keys(filterMarkcomponent).length >= 1 && (
+							<Box
+								p='5px 15px'
+								borderRadius='15px'
+								boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'>
 								<FormControl>
-									<FormLabel
-										fontSize='1.8rem !important'
-										fontWeight='600'
-										color='var(--chakra-colors-claimzTextBlueColor)'>
-										Updated Monthly CTC :
+									<FormLabel>
+										Provident Fund Capping :
 									</FormLabel>
-									<Input
-										type='number'
-										className='handleScroll'
-										value={updatedCtc}
-										readOnly
-									/>
+									<RadioGroup
+										onChange={setCapping}
+										value={capping}>
+										<Stack direction='row' gap='20px'>
+											<Radio value='1' size='lg'>
+												<Text
+													fontWeight='600'
+													color='claimzTextBlueLightColor'>
+													15000
+												</Text>
+											</Radio>
+											<Radio value='2' size='lg'>
+												<Text
+													fontWeight='600'
+													color='claimzTextBlueLightColor'>
+													{
+														filterBasicComponent[
+															Object.keys(
+																filterBasicComponent
+															)
+														].input
+													}
+												</Text>
+											</Radio>
+											<Radio value='0' size='lg'>
+												<Text
+													fontWeight='600'
+													color='claimzTextBlueLightColor'>
+													0
+												</Text>
+											</Radio>
+										</Stack>
+									</RadioGroup>
 								</FormControl>
-							)}
-							{/* <p>Total: <span>{CTC - totalEarningSum.toFixed(2)}</span></p> */}
-							{Object.keys(filterMarkcomponent).length >= 1 && (
+							</Box>
+						)}
+					</Grid>
+				</Box>
+
+				<Box>
+					<Box
+						bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
+						boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+						color='white'
+						padding='10px 15px'
+						my='30px'>
+						<Heading>Earning :</Heading>
+					</Box>
+					<Grid templateColumns='repeat(4, 1fr)' gap={6}>
+						{EarningDetails}
+					</Grid>
+				</Box>
+
+				<Box>
+					<Box
+						bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
+						boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+						color='white'
+						padding='10px 15px'
+						my='30px'>
+						<Heading>Deductions :</Heading>
+					</Box>
+					<Box display='flex' gap='1%'>
+						{Object.keys(filteredEmployeeEsi).length > 0 ? (
+							<Box
+								boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
+								w='32%'
+								p='15px'
+								borderRadius='5px'>
 								<Box
-									p='5px 15px'
-									borderRadius='15px'
-									boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'>
+									display='flex'
+									gap='10px'
+									alignItems='center'
+									mb='15px'
+									color='#083d6acc !important'>
+									<i className='fa-solid fa-circle-info'></i>
+									<Checkbox
+										size='lg'
+										type='checkbox'
+										checked={isChecked}
+										onChange={handleCheckboxClickESIC}>
+										<Text fontWeight='600'>
+											ESIC
+											<Button
+												onClick={() =>
+													handleDeleteObjects(1)
+												}
+												bg='none'
+												_hover={{ bg: 'none' }}
+												_active={{ bg: 'none' }}>
+												<i className='fa-solid fa-trash'></i>
+											</Button>
+										</Text>
+									</Checkbox>
+									<Box
+										fontSize='1.4rem'
+										color='red'
+										fontWeight='600'>
+										{esicValue?.data}
+									</Box>
+								</Box>
+
+								{Object.entries(filteredEmployeeEsi).map(
+									([key, value]) => (
+										<Box key={key}>
+											<FormControl mb='15px'>
+												<FormLabel>
+													{value?.salary_component}{' '}
+												</FormLabel>
+												<Input
+													type='number'
+													placeholder={
+														value?.salary_component
+													}
+													name={
+														value?.salary_component
+													}
+													value={
+														empEsiValue[
+															value
+																?.salary_component
+														]
+													}
+													onChange={
+														handleInputChangeDeduction
+													}
+													readOnly
+												/>
+											</FormControl>
+										</Box>
+									)
+								)}
+							</Box>
+						) : (
+							''
+						)}
+						{Object.keys(filteredEmployeePtax).length > 0 ? (
+							<Box
+								boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
+								w='32%'
+								p='15px'
+								borderRadius='5px'>
+								<Box
+									display='flex'
+									gap='10px'
+									alignItems='center'
+									mb='15px'
+									color='#083d6acc !important'>
+									<i className='fa-solid fa-circle-info'></i>
+									<Checkbox
+										size='lg'
+										type='checkbox'
+										checked={isChecked}
+										onChange={handleCheckboxClickPtax}>
+										<Text fontWeight='600'>
+											PTAX{' '}
+											<Button
+												onClick={() =>
+													handleDeleteObjects(2)
+												}
+												bg='none'
+												_hover={{ bg: 'none' }}
+												_active={{ bg: 'none' }}>
+												<i className='fa-solid fa-trash'></i>
+											</Button>
+										</Text>
+									</Checkbox>
+								</Box>
+								{Object.entries(filteredEmployeePtax).map(
+									([key, value]) => (
+										<Box key={key}>
+											<FormControl mb='15px'>
+												<FormLabel>
+													{value?.salary_component}{' '}
+												</FormLabel>
+												<Input
+													type='number'
+													placeholder={
+														value?.salary_component
+													}
+													name={
+														value?.salary_component
+													}
+													value={pTaxValue}
+													onChange={
+														handleInputChangeDeduction
+													}
+													readOnly
+												/>
+											</FormControl>
+										</Box>
+									)
+								)}
+							</Box>
+						) : (
+							''
+						)}
+						{Object.keys(filteredEmployeePf).length > 0 ? (
+							<Box
+								boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
+								w='32%'
+								p='15px'
+								borderRadius='5px'>
+								<Box
+									display='flex'
+									gap='10px'
+									alignItems='center'
+									mb='15px'
+									color='#083d6acc !important'>
+									<i className='fa-solid fa-circle-info'></i>
+									<Checkbox
+										size='lg'
+										type='checkbox'
+										checked={isChecked}
+										onChange={handleCheckboxClickPF}>
+										<Text fontWeight='600'>
+											PF{' '}
+											<Button
+												onClick={() =>
+													handleDeleteObjects(3)
+												}
+												bg='none'
+												_hover={{ bg: 'none' }}
+												_active={{ bg: 'none' }}>
+												<i className='fa-solid fa-trash'></i>
+											</Button>
+										</Text>
+									</Checkbox>
+								</Box>
+
+								{Object.entries(filteredEmployeePf).map(
+									([key, value]) => (
+										<Box key={key}>
+											<FormControl mb='15px'>
+												<FormLabel>
+													{value?.salary_component}{' '}
+												</FormLabel>
+												<Input
+													type='number'
+													placeholder={
+														value?.salary_component
+													}
+													name={
+														value?.salary_component
+													}
+													value={
+														empPfValue[
+															value
+																?.salary_component
+														]
+													}
+													onChange={
+														handleInputChangeDeduction
+													}
+													readOnly
+												/>
+											</FormControl>
+										</Box>
+									)
+								)}
+							</Box>
+						) : (
+							''
+						)}
+						{Object.keys(filteredTds).length > 0 ? (
+							<Box
+								boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
+								w='32%'
+								p='15px'
+								borderRadius='5px'>
+								<Box
+									display='flex'
+									gap='10px'
+									alignItems='center'
+									mb='15px'
+									color='#083d6acc !important'>
+									<i className='fa-solid fa-circle-info'></i>
+									<Checkbox
+										size='lg'
+										type='checkbox'
+										checked={isChecked}
+										onChange={handleCheckboxClickTDS}>
+										<Text fontWeight='600'>
+											TDS
+											<Button
+												onClick={() =>
+													handleDeleteObjects(4)
+												}
+												bg='none'
+												_hover={{ bg: 'none' }}
+												_active={{ bg: 'none' }}>
+												<i className='fa-solid fa-trash'></i>
+											</Button>
+										</Text>
+									</Checkbox>
+								</Box>
+
+								{Object.entries(filteredTds).map(
+									([key, value]) => (
+										<Box key={key}>
+											<FormControl mb='15px'>
+												<FormLabel>
+													{value?.salary_component}{' '}
+												</FormLabel>
+												<Input
+													type='number'
+													placeholder={
+														value?.salary_component
+													}
+													name={
+														value?.salary_component
+													}
+													value={empTdsValue.value}
+													onChange={
+														handleInputChangeDeduction
+													}
+													readOnly
+												/>
+											</FormControl>
+										</Box>
+									)
+								)}
+							</Box>
+						) : (
+							''
+						)}
+					</Box>
+					<Grid
+						templateColumns='repeat(3, 1fr)'
+						gap={6}
+						boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
+						p='15px'
+						mt='24px'
+						borderRadius='5px'>
+						{Object.entries(filteredEmployeeOther).map(
+							([key, value]) => (
+								<Box key={key}>
 									<FormControl>
 										<FormLabel>
-											Provident Fund Capping :
+											{value?.salary_component}{' '}
+											<Button
+												onClick={() =>
+													handleDeleteDeduction(key)
+												}
+												bg='none'
+												_hover={{ bg: 'none' }}
+												_active={{ bg: 'none' }}>
+												<i className='fa-solid fa-trash'></i>
+											</Button>
 										</FormLabel>
-										<RadioGroup
-											onChange={setCapping}
-											value={capping}>
-											<Stack direction='row' gap='20px'>
-												<Radio value='1' size='lg'>
-													<Text
-														fontWeight='600'
-														color='claimzTextBlueLightColor'>
-														15000
-													</Text>
-												</Radio>
-												<Radio value='2' size='lg'>
-													<Text
-														fontWeight='600'
-														color='claimzTextBlueLightColor'>
-														{
-															filterBasicComponent[
-																Object.keys(
-																	filterBasicComponent
-																)
-															].input
-														}
-													</Text>
-												</Radio>
-												<Radio value='0' size='lg'>
-													<Text
-														fontWeight='600'
-														color='claimzTextBlueLightColor'>
-														0
-													</Text>
-												</Radio>
-											</Stack>
-										</RadioGroup>
+										<Input
+											type='number'
+											placeholder={
+												value?.salary_component
+											}
+											name={value?.salary_component}
+											value={
+												deductionformData.data
+													?.salary_component
+											}
+											onChange={(e) =>
+												handleInputChangeDeduction(
+													value?.salary_component_id,
+													e
+												)
+											}
+										/>
 									</FormControl>
 								</Box>
-							)}
-						</Grid>
+							)
+						)}
+					</Grid>
+				</Box>
+
+				<Box>
+					<Box
+						bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
+						boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+						color='white'
+						padding='10px 15px'
+						my='30px'>
+						<Heading> Perquisite :</Heading>
 					</Box>
-
-					<Box>
-						<Box
-							bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
-							boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-							color='white'
-							padding='10px 15px'
-							my='30px'>
-							<Heading>Earning :</Heading>
-						</Box>
-						<Grid templateColumns='repeat(4, 1fr)' gap={6}>
-							{EarningDetails}
-						</Grid>
-					</Box>
-
-					<Box>
-						<Box
-							bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
-							boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-							color='white'
-							padding='10px 15px'
-							my='30px'>
-							<Heading>Deductions :</Heading>
-						</Box>
-
-						<Box display='flex' gap='1%'>
-							{Object.keys(filteredEmployeeEsi).length > 0 ? (
-								<Box
-									boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
-									w='32%'
-									p='15px'
-									borderRadius='5px'>
-									<Box
-										display='flex'
-										gap='10px'
-										alignItems='center'
-										mb='15px'
-										color='#083d6acc !important'>
-										<i className='fa-solid fa-circle-info'></i>
-										<Checkbox
-											size='lg'
-											type='checkbox'
-											checked={isChecked}
-											onChange={handleCheckboxClickESIC}>
-											<Text fontWeight='600'>
-												ESIC
-												<Button
-													onClick={() =>
-														handleDeleteObjects(1)
-													}
-													bg='none'
-													_hover={{ bg: 'none' }}
-													_active={{ bg: 'none' }}>
-													<i className='fa-solid fa-trash'></i>
-												</Button>
-											</Text>
-										</Checkbox>
-										<Box
-											fontSize='1.4rem'
-											color='red'
-											fontWeight='600'>
-											{esicValue?.data}
-										</Box>
-									</Box>
-
-									{Object.entries(filteredEmployeeEsi).map(
-										([key, value]) => (
-											<Box key={key}>
-												<FormControl mb='15px'>
-													<FormLabel>
-														{
-															value?.salary_component
-														}{' '}
-													</FormLabel>
-													<Input
-														type='number'
-														placeholder={
-															value?.salary_component
-														}
-														name={
-															value?.salary_component
-														}
-														value={
-															empEsiValue[
-																value
-																	?.salary_component
-															]
-														}
-														onChange={
-															handleInputChangeDeduction
-														}
-														readOnly
-													/>
-												</FormControl>
-											</Box>
-										)
-									)}
-								</Box>
-							) : (
-								''
-							)}
-							{Object.keys(filteredEmployeePtax).length > 0 ? (
-								<Box
-									boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
-									w='32%'
-									p='15px'
-									borderRadius='5px'>
-									<Box
-										display='flex'
-										gap='10px'
-										alignItems='center'
-										mb='15px'
-										color='#083d6acc !important'>
-										<i className='fa-solid fa-circle-info'></i>
-										<Checkbox
-											size='lg'
-											type='checkbox'
-											checked={isChecked}
-											onChange={handleCheckboxClickPtax}>
-											<Text fontWeight='600'>
-												PTAX{' '}
-												<Button
-													onClick={() =>
-														handleDeleteObjects(2)
-													}
-													bg='none'
-													_hover={{ bg: 'none' }}
-													_active={{ bg: 'none' }}>
-													<i className='fa-solid fa-trash'></i>
-												</Button>
-											</Text>
-										</Checkbox>
-									</Box>
-									{Object.entries(filteredEmployeePtax).map(
-										([key, value]) => (
-											<Box key={key}>
-												<FormControl mb='15px'>
-													<FormLabel>
-														{
-															value?.salary_component
-														}{' '}
-													</FormLabel>
-													<Input
-														type='number'
-														placeholder={
-															value?.salary_component
-														}
-														name={
-															value?.salary_component
-														}
-														value={pTaxValue}
-														onChange={
-															handleInputChangeDeduction
-														}
-														readOnly
-													/>
-												</FormControl>
-											</Box>
-										)
-									)}
-								</Box>
-							) : (
-								''
-							)}
-							{Object.keys(filteredEmployeePf).length > 0 ? (
-								<Box
-									boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
-									w='32%'
-									p='15px'
-									borderRadius='5px'>
-									<Box
-										display='flex'
-										gap='10px'
-										alignItems='center'
-										mb='15px'
-										color='#083d6acc !important'>
-										<i className='fa-solid fa-circle-info'></i>
-										<Checkbox
-											size='lg'
-											type='checkbox'
-											checked={isChecked}
-											onChange={handleCheckboxClickPF}>
-											<Text fontWeight='600'>
-												PF{' '}
-												<Button
-													onClick={() =>
-														handleDeleteObjects(3)
-													}
-													bg='none'
-													_hover={{ bg: 'none' }}
-													_active={{ bg: 'none' }}>
-													<i className='fa-solid fa-trash'></i>
-												</Button>
-											</Text>
-										</Checkbox>
-									</Box>
-
-									{Object.entries(filteredEmployeePf).map(
-										([key, value]) => (
-											<Box key={key}>
-												<FormControl mb='15px'>
-													<FormLabel>
-														{
-															value?.salary_component
-														}{' '}
-													</FormLabel>
-													<Input
-														type='number'
-														placeholder={
-															value?.salary_component
-														}
-														name={
-															value?.salary_component
-														}
-														value={
-															empPfValue[
-																value
-																	?.salary_component
-															]
-														}
-														onChange={
-															handleInputChangeDeduction
-														}
-														readOnly
-													/>
-												</FormControl>
-											</Box>
-										)
-									)}
-								</Box>
-							) : (
-								''
-							)}
-							{Object.keys(filteredTds).length > 0 ? (
-								<Box
-									boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
-									w='32%'
-									p='15px'
-									borderRadius='5px'>
-									<Box
-										display='flex'
-										gap='10px'
-										alignItems='center'
-										mb='15px'
-										color='#083d6acc !important'>
-										<i className='fa-solid fa-circle-info'></i>
-										<Checkbox
-											size='lg'
-											type='checkbox'
-											checked={isChecked}
-											onChange={handleCheckboxClickTDS}>
-											<Text fontWeight='600'>
-												TDS
-												<Button
-													onClick={() =>
-														handleDeleteObjects(4)
-													}
-													bg='none'
-													_hover={{ bg: 'none' }}
-													_active={{ bg: 'none' }}>
-													<i className='fa-solid fa-trash'></i>
-												</Button>
-											</Text>
-										</Checkbox>
-									</Box>
-
-									{Object.entries(filteredTds).map(
-										([key, value]) => (
-											<Box key={key}>
-												<FormControl mb='15px'>
-													<FormLabel>
-														{
-															value?.salary_component
-														}{' '}
-													</FormLabel>
-													<Input
-														type='number'
-														placeholder={
-															value?.salary_component
-														}
-														name={
-															value?.salary_component
-														}
-														value={
-															empTdsValue.value
-														}
-														onChange={
-															handleInputChangeDeduction
-														}
-														readOnly
-													/>
-												</FormControl>
-											</Box>
-										)
-									)}
-								</Box>
-							) : (
-								''
-							)}
-						</Box>
-						<Grid
-							templateColumns='repeat(3, 1fr)'
-							gap={6}
-							boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
-							p='15px'
-							mt='24px'
-							borderRadius='5px'>
-							{Object.entries(filteredEmployeeOther).map(
-								([key, value]) => (
-									<Box key={key}>
-										<FormControl>
-											<FormLabel>
-												{value?.salary_component}{' '}
-												<Button
-													onClick={() =>
-														handleDeleteDeduction(
-															key
-														)
-													}
-													bg='none'
-													_hover={{ bg: 'none' }}
-													_active={{ bg: 'none' }}>
-													<i className='fa-solid fa-trash'></i>
-												</Button>
-											</FormLabel>
-											<Input
-												type='number'
-												placeholder={
-													value?.salary_component
-												}
-												name={value?.salary_component}
-												value={
-													deductionformData.data
-														?.salary_component
-												}
-												onChange={(e) =>
-													handleInputChangeDeduction(
-														value?.salary_component_id,
-														e
-													)
-												}
-											/>
-										</FormControl>
-									</Box>
-								)
-							)}
-						</Grid>
-					</Box>
-
-					<Box>
-						<Box
-							bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
-							boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-							color='white'
-							padding='10px 15px'
-							my='30px'>
-							<Heading> Perquisite :</Heading>
-						</Box>
-						<Grid templateColumns='repeat(3, 1fr)' gap={6}>
-							{empDetails?.perquisits_components?.map(
-								(data, index) => (
-									<Box key={index}>
-										<FormControl>
-											<FormLabel>
-												{data?.salary_component}
-											</FormLabel>
-											<Input
-												type='number'
-												placeholder={
-													data?.salary_component
-												}
-												name={data?.salary_component}
-												value={
-													deductionformData.data
-														?.salary_component
-												}
-												onChange={(e) =>
-													handleInputChangePerquisits(
-														data.salary_component_id,
-														e
-													)
-												}
-											/>
-										</FormControl>
-									</Box>
-								)
-							)}
-						</Grid>
-					</Box>
-
-					<Box>
-						<Box
-							bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
-							boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-							color='white'
-							padding='10px 15px'
-							my='30px'>
-							<Heading> Profit :</Heading>
-						</Box>
-						<Grid templateColumns='repeat(3, 1fr)' gap={6}>
-							{empDetails?.profit_components?.map(
-								(data, index) => (
-									<FormControl key={index}>
+					<Grid templateColumns='repeat(3, 1fr)' gap={6}>
+						{empDetails?.perquisits_components?.map(
+							(data, index) => (
+								<Box key={index}>
+									<FormControl>
 										<FormLabel>
 											{data?.salary_component}
 										</FormLabel>
@@ -1251,49 +1187,78 @@ const SalaryDetails = () => {
 													?.salary_component
 											}
 											onChange={(e) =>
-												handleInputChangeProfit(
+												handleInputChangePerquisits(
 													data.salary_component_id,
 													e
 												)
 											}
 										/>
 									</FormControl>
-								)
-							)}
-						</Grid>
-					</Box>
+								</Box>
+							)
+						)}
+					</Grid>
 				</Box>
-				<Box width='100%' display='flex' justifyContent='flex-end'>
-					<Button
-						disabled={isLoading}
-						isLoading={isLoading}
-						spinner={<BeatLoader size={8} color='white' />}
-						bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+
+				<Box>
+					<Box
+						bgGradient='linear(180deg, #256DAA 0%, #02335C 100%)'
 						boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-						borderRadius='10px'
-						p='20px 15px'
-						fontSize='1.6rem'
 						color='white'
-						_hover={{
-							bgGradient:
-								'linear(180deg, #2267A2 0%, #0D4675 100%)',
-						}}
-						_active={{
-							bgGradient:
-								'linear(180deg, #2267A2 0%, #0D4675 100%)',
-						}}
-						_focus={{
-							bgGradient:
-								'linear(180deg, #2267A2 0%, #0D4675 100%)',
-						}}
-						ml='15px'
-						my='15px'
-						onClick={salaryDetailsSubmit}>
-						Submit
-					</Button>
+						padding='10px 15px'
+						my='30px'>
+						<Heading> Profit :</Heading>
+					</Box>
+					<Grid templateColumns='repeat(3, 1fr)' gap={6}>
+						{empDetails?.profit_components?.map((data, index) => (
+							<FormControl key={index}>
+								<FormLabel>{data?.salary_component}</FormLabel>
+								<Input
+									type='number'
+									placeholder={data?.salary_component}
+									name={data?.salary_component}
+									value={
+										deductionformData.data?.salary_component
+									}
+									onChange={(e) =>
+										handleInputChangeProfit(
+											data.salary_component_id,
+											e
+										)
+									}
+								/>
+							</FormControl>
+						))}
+					</Grid>
 				</Box>
-			</CardBody>
-		</Card>
+			</Box>
+			<Box width='100%' display='flex' justifyContent='flex-end'>
+				<Button
+					disabled={isLoading}
+					isLoading={isLoading}
+					spinner={<BeatLoader size={8} color='white' />}
+					bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
+					boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
+					borderRadius='10px'
+					p='20px 15px'
+					fontSize='1.6rem'
+					color='white'
+					_hover={{
+						bgGradient: 'linear(180deg, #2267A2 0%, #0D4675 100%)',
+					}}
+					_active={{
+						bgGradient: 'linear(180deg, #2267A2 0%, #0D4675 100%)',
+					}}
+					_focus={{
+						bgGradient: 'linear(180deg, #2267A2 0%, #0D4675 100%)',
+					}}
+					ml='15px'
+					my='15px'
+					onClick={salaryDetailsSubmit}>
+					Submit
+				</Button>
+			</Box>
+		</Box>
 	);
 };
 

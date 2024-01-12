@@ -375,22 +375,22 @@ const EmployeeDataList = () => {
 				display='flex'
 				justifyContent='space-between'
 				alignItems='center'>
-				<div className='flex flex-wrap gap-2 justify-content-between align-items-center'>
+				<Box className='flex flex-wrap gap-2 justify-content-between align-items-center'>
 					<Heading
 						mb='5px'
 						fontSize='1.4rem'
 						color='var(--chakra-colors-claimzTextBlueColor)'>
 						Search Employee
 					</Heading>
-					<span className='p-input-icon-left'>
+					<Box as='span' className='p-input-icon-left'>
 						<i className='pi pi-search' />
 						<InputText
 							value={globalFilterValue}
 							onChange={onGlobalFilterChange}
 							placeholder='Keyword Search'
 						/>
-					</span>
-				</div>
+					</Box>
+				</Box>
 				<Box display='flex' justifyContent='space-between'>
 					<Menu>
 						<MenuButton

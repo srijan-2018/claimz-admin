@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Image, Text } from '@chakra-ui/react';
+import { Box, Image, Text, Button } from '@chakra-ui/react';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -154,6 +154,41 @@ const Approve = () => {
 	};
 
 	const RenderHeader = () => {
+		const exportExcel = () => {
+			import('xlsx').then((xlsx) => {
+				const worksheet = xlsx.utils.json_to_sheet(empList.data);
+				const workbook = {
+					Sheets: { data: worksheet },
+					SheetNames: ['data'],
+				};
+				const excelBuffer = xlsx.write(workbook, {
+					bookType: 'xlsx',
+					type: 'array',
+				});
+
+				saveAsExcelFile(excelBuffer, 'empList_approve');
+			});
+		};
+		const saveAsExcelFile = (buffer, fileName) => {
+			import('file-saver').then((module) => {
+				if (module && module.default) {
+					let EXCEL_TYPE =
+						'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
+					let EXCEL_EXTENSION = '.xlsx';
+					const data = new Blob([buffer], {
+						type: EXCEL_TYPE,
+					});
+
+					module.default.saveAs(
+						data,
+						fileName +
+							'_export_' +
+							new Date().getTime() +
+							EXCEL_EXTENSION
+					);
+				}
+			});
+		};
 		return (
 			<Box
 				display='flex'
@@ -171,6 +206,29 @@ const Approve = () => {
 							placeholder='Keyword Search'
 						/>
 					</Box>
+				</Box>
+				<Box display='flex' justifyContent='space-between'>
+					<Button
+						border='2px solid var(--chakra-colors-claimzBorderColor)'
+						borderRadius='15px'
+						height='45px'
+						padding='0px 20px'
+						mr='10px'
+						type='button'
+						icon='pi pi-file-excel'
+						severity='success'
+						background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
+						backgroundClip='text'
+						onClick={exportExcel}
+						data-pr-tooltip='XLS'>
+						<Text
+							background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
+							backgroundClip='text'
+							fontSize='1.6rem'
+							fontWeight='700'>
+							<i className='fa-solid fa-file-excel'></i>
+						</Text>
+					</Button>
 				</Box>
 			</Box>
 		);
