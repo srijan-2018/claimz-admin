@@ -109,7 +109,7 @@ const AgeGraph = ({ Age, Loader }) => {
 						fill='#8884d8'
 						dataKey='COUNT(*)'
 						onMouseEnter={onPieEnter}>
-						{Age.map((entry, index) => (
+						{Age?.map((entry, index) => (
 							<Cell
 								key={`cell-${index}`}
 								fill={COLORS[index % COLORS.length]}

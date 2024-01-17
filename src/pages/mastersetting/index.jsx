@@ -23,11 +23,7 @@ const CssWrapper = styled.div`
 const MasterSetting = () => {
 	let location = useLocation();
 	return (
-		<Box
-			position='relative'
-			width='100%'
-			bg='rgba(230, 237, 239, 1)'
-			height='100%'>
+		<Box position='relative' width='100%' bg='rgba(230, 237, 239, 1)'>
 			{location.pathname === '/master-setting' && (
 				<CssWrapper>
 					<Box>

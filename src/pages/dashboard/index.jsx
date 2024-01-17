@@ -10,94 +10,70 @@ import { Link, useNavigate } from 'react-router-dom';
 import AgeGraph from './agegraph';
 import GradeListGraph from './gradelistgraph';
 import Designationgraph from './designationgraph';
+import {
+	useGetAgeWiseEmployeeQuery,
+	useGetAttendanceListQuery,
+	useGetDesignationWiseEmployeeQuery,
+	useGetEventListQuery,
+	useGetGradeWiseEmployeeQuery,
+} from './features/dashboardGraphApi';
 
 const Dashboard = () => {
 	const navigate = useNavigate();
-	const token = localStorage.getItem('token');
-	const [upComingEvent, setUpComingEvent] = useState();
 	const [loader, setLoader] = useState(false);
-	const [attendanceList, setAttendanceList] = useState([]);
-	const [designation, setDesignation] = useState();
-	const [age, setAge] = useState([]);
-	const [grade, setGrade] = useState([]);
+	const {
+		data: eventList,
+		isSuccess: isSuccessEventList,
+		isError: isErrorEventList,
+		isLoading: isLoadingEventList,
+		error: errorEventList,
+	} = useGetEventListQuery();
+	const {
+		data: attendanceList,
+		isSuccess: isSuccessAttendanceList,
+		isError: isErrorAttendanceList,
+		isLoading: isLoadingAttendanceList,
+		error: errorAttendanceList,
+	} = useGetAttendanceListQuery();
+	const {
+		data: designationWiseEmployee,
+		isSuccess: isSuccessDesignationWiseEmployee,
+		isError: isErrorDesignationWiseEmployee,
+		isLoading: isLoadingDesignationWiseEmployee,
+		error: errorDesignationWiseEmployee,
+	} = useGetDesignationWiseEmployeeQuery();
+	const {
+		data: ageWiseEmployee,
+		isSuccess: isSuccessAgeWiseEmployee,
+		isError: isErrorAgeWiseEmployee,
+		isLoading: isLoadingAgeWiseEmployee,
+		error: errorAgeWiseEmployee,
+	} = useGetAgeWiseEmployeeQuery();
+	const {
+		data: gradeWiseEmployee,
+		isSuccess: isSuccessGradeWiseEmployee,
+		isError: isErrorGradeWiseEmployee,
+		isLoading: isLoadingGradeWiseEmployee,
+		error: errorGradeWiseEmployee,
+	} = useGetGradeWiseEmployeeQuery();
 
 	useEffect(() => {
-		const upComingHoliday = async () => {
-			try {
-				setLoader(true);
-				const response = await fetch(
-					`${process.env.REACT_APP_API_URL}/event-list-dashboard`,
-					{
-						method: 'GET',
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					}
-				);
-				const response1 = await fetch(
-					`${process.env.REACT_APP_API_URL}/attendance-list-dashboard`,
-					{
-						method: 'GET',
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					}
-				);
-				const response2 = await fetch(
-					`${process.env.REACT_APP_API_URL}/designation-wise-employee`,
-					{
-						method: 'GET',
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					}
-				);
-				const response3 = await fetch(
-					`${process.env.REACT_APP_API_URL}/age-wise-employee`,
-					{
-						method: 'GET',
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					}
-				);
-				const response4 = await fetch(
-					`${process.env.REACT_APP_API_URL}/grade-wise-employee`,
-					{
-						method: 'GET',
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					}
-				);
-
-				if (response.ok) {
-					const data = await response.json();
-					const data1 = await response1.json();
-					const data2 = await response2.json();
-					const data3 = await response3.json();
-					const data4 = await response4.json();
-					setUpComingEvent(data.data);
-					setAttendanceList(data1.data);
-					setDesignation(data2.data);
-					setAge(data3.data);
-					setGrade(data4.data);
-					setLoader(false);
-				} else if (response.status === 400) {
-					navigate('/login');
-				}
-			} catch (error) {
-				navigate('/login');
+		if (errorEventList) {
+			const response = errorEventList.response;
+			if ((response && response.status === 401) || 400) {
+				// Token expired, navigate to login page
+				navigate.push('/login');
 			}
-		};
-
-		upComingHoliday();
-	}, []);
+		}
+	}, [errorEventList, navigate]);
 
 	return (
 		<Box>
 			<Box>
-				<TabGraph AttendanceList={attendanceList} Loader={loader} />
+				<TabGraph
+					AttendanceList={attendanceList?.data}
+					Loader={isLoadingAttendanceList}
+				/>
 			</Box>
 			<Box
 				mb='45px'
@@ -122,7 +98,10 @@ const Dashboard = () => {
 							</Text>
 							<Text>percentage of employee's grade</Text>
 						</Box>
-						<GradeListGraph Grade={grade} Loader={loader} />
+						<GradeListGraph
+							Grade={gradeWiseEmployee?.data}
+							Loader={isLoadingGradeWiseEmployee}
+						/>
 					</Box>
 					<Box w='56%' position='relative'>
 						<Box>
@@ -138,7 +117,10 @@ const Dashboard = () => {
 								</Text>
 								<Text>percentage of employee's</Text>
 							</Box>
-							<AgeGraph Age={age} Loader={loader} />
+							<AgeGraph
+								Age={ageWiseEmployee?.data}
+								Loader={isLoadingAgeWiseEmployee}
+							/>
 						</Box>
 
 						<Box
@@ -146,7 +128,7 @@ const Dashboard = () => {
 							position='absolute'
 							bottom='75px'
 							left='35%'>
-							{age?.map((data, index) => {
+							{ageWiseEmployee?.data?.map((data, index) => {
 								return (
 									<Box
 										display='flex'
@@ -205,8 +187,8 @@ const Dashboard = () => {
 						<Text>percentage of employee's designation</Text>
 					</Box>
 					<Designationgraph
-						Designation={designation}
-						Loader={loader}
+						Designation={designationWiseEmployee?.data}
+						Loader={isLoadingDesignationWiseEmployee}
 					/>
 				</Box>
 				<Box
@@ -216,8 +198,8 @@ const Dashboard = () => {
 					bg='white'
 					boxShadow='1px 1px 3px rgba(0, 0, 0, 0.3)'>
 					<UpcomingHolidays
-						UpComingEvent={upComingEvent}
-						Loader={loader}
+						UpComingEvent={eventList?.data}
+						Loader={isLoadingEventList}
 					/>
 				</Box>
 			</Box>

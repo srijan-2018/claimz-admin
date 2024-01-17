@@ -199,8 +199,6 @@ const HolidayPolicies = () => {
 			}
 		};
 
-		console.log(selectedValue, 'selectedValue');
-
 		return (
 			<>
 				<Button
@@ -553,7 +551,7 @@ const HolidayPolicies = () => {
 
 				<Modal isOpen={modalIsOpen} onClose={modalOnClose} isCentered>
 					<ModalOverlay bg='rgba(0,0,0,0.2)' />
-					<ModalContent minW='50%' h='40vh'>
+					<ModalContent minW='50%' h='50vh'>
 						<ModalHeader
 							pt='24px'
 							pb='15px'

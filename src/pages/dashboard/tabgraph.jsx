@@ -13,6 +13,7 @@ import TabGraphTotal from './tabgraphtotal';
 import LoaderImg from '../../assets/images/loader.gif';
 
 const TabGraph = ({ AttendanceList, Loader }) => {
+	console.log(AttendanceList, 'AttendanceList');
 	return (
 		<Box mb='45px' mt='20px'>
 			<Tabs position='relative' variant='solid-rounded'>
