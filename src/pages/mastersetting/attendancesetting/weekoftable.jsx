@@ -131,18 +131,19 @@ const WeekOfTable = ({ Msg }) => {
 		const toast = useToast();
 		const { isOpen, onOpen, onClose } = useDisclosure();
 		const [variantName, setVariantName] = useState(rowData.variant_name);
-		// const [selectedDay, setSelectedDay] = useState('');
 		const [selectedDay, setSelectedDay] = useState(
-			rowData.selected_regular_days
-		); // Replace 'rowData.selected_regular_days' with the actual property that holds the selected regular days in your 'rowData' object.
-
-		const [selectedWeeks, setSelectedWeeks] = useState('');
-		const [weekDays, setWeekDays] = useState();
-		const [variantId, setVariantId] = useState(rowData.variant_id);
+			day.filter((dayName) => Boolean(Number(rowData[dayName])))
+		);
+		const [selectedWeeks, setSelectedWeeks] = useState(
+			weeks.filter((weekName) => Boolean(Number(rowData[weekName])))
+		);
+		const [weekDays, setWeekDays] = useState(rowData.alternate ? [7] : []);
+		const [isLoading, setIsLoading] = useState(false);
+		const [variantId] = useState(rowData.variant_id);
 
 		function toastCall() {
 			return toast({
-				title: 'Variant Added Sucessfully',
+				title: 'Variant Added Successfully',
 				status: 'success',
 				duration: 3000,
 				isClosable: true,
@@ -151,11 +152,12 @@ const WeekOfTable = ({ Msg }) => {
 
 		const updateVariant = async (e) => {
 			e.preventDefault();
+
 			let formData = new FormData();
 			formData.append('variant_name', variantName);
-			formData.append('weekoff', `["${selectedDay}"]`);
-			formData.append('alt', `["${selectedWeeks}"]`);
-			formData.append('week', weekDays);
+			formData.append('weekoff', JSON.stringify(selectedDay));
+			formData.append('alt', JSON.stringify(selectedWeeks));
+			formData.append('week', JSON.stringify(weekDays));
 			formData.append('id', variantId);
 
 			try {
@@ -185,7 +187,8 @@ const WeekOfTable = ({ Msg }) => {
 		};
 
 		console.log(rowData, 'rowData');
-		console.log(selectedDay, 'selectedDay');
+		console.log(selectedWeeks, 'selectedWeeks');
+		console.log(weekDays, 'weekDays');
 
 		return (
 			<>
@@ -289,6 +292,7 @@ const WeekOfTable = ({ Msg }) => {
 											<Select
 												color='#6c757d'
 												placeholder='Select option'
+												value={weekDays || ''}
 												onChange={(event) =>
 													setWeekDays(
 														event.target.value
