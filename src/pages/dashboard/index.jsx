@@ -1,18 +1,4 @@
-import {
-	Box,
-	Heading,
-	Image,
-	Text,
-	Button,
-	Modal,
-	ModalOverlay,
-	ModalContent,
-	ModalHeader,
-	ModalFooter,
-	ModalBody,
-	ModalCloseButton,
-	useDisclosure,
-} from '@chakra-ui/react';
+import { Box, Heading, Image, Text, Button } from '@chakra-ui/react';
 import React, { useState, useEffect } from 'react';
 import UpcomingHolidays from './upcomingholidays';
 import Employee from '../../assets/images/employee.png';
