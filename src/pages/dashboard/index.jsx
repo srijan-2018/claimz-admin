@@ -20,7 +20,6 @@ import {
 
 const Dashboard = () => {
 	const navigate = useNavigate();
-	const [loader, setLoader] = useState(false);
 	const {
 		data: eventList,
 		isSuccess: isSuccessEventList,
@@ -62,7 +61,7 @@ const Dashboard = () => {
 			const response = errorEventList.response;
 			if ((response && response.status === 401) || 400) {
 				// Token expired, navigate to login page
-				navigate.push('/login');
+				navigate('/login');
 			}
 		}
 	}, [errorEventList, navigate]);

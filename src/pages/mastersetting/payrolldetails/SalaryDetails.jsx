@@ -66,6 +66,14 @@ const SalaryDetails = () => {
 			isClosable: true,
 		});
 	}
+	function toastCallError() {
+		return toast({
+			title: 'Salary details submited Failed',
+			status: 'error',
+			duration: 3000,
+			isClosable: true,
+		});
+	}
 
 	// fetch salary details from api
 	useEffect(() => {
@@ -531,7 +539,8 @@ const SalaryDetails = () => {
 				toastCall();
 				setIsLoading(false);
 			} else {
-				navigate('/login');
+				toastCallError();
+				setIsLoading(false);
 			}
 		} catch (error) {
 			navigate('/login');

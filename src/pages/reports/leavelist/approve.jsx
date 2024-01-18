@@ -113,6 +113,8 @@ const Approve = () => {
 		setRows(event.rows);
 	};
 
+	console.log(empList?.data, 'setEmpList');
+
 	const [filters, setFilters] = useState({
 		global: { value: null, matchMode: FilterMatchMode.CONTAINS },
 		name: {
@@ -154,9 +156,18 @@ const Approve = () => {
 	};
 
 	const RenderHeader = () => {
+		const filteredData = empList?.data?.map((leaveEntry) => ({
+			'Employee Name': leaveEntry.emp_name,
+			'Start Half Day': leaveEntry.start_half_day,
+			'End Half Day': leaveEntry.end_half_day,
+			Description: leaveEntry.description,
+			'leave Type': leaveEntry.leave_type,
+			'Approved By': leaveEntry.approved_by,
+			'Emp Code': leaveEntry.emp_code,
+		}));
 		const exportExcel = () => {
 			import('xlsx').then((xlsx) => {
-				const worksheet = xlsx.utils.json_to_sheet(empList.data);
+				const worksheet = xlsx.utils.json_to_sheet(filteredData);
 				const workbook = {
 					Sheets: { data: worksheet },
 					SheetNames: ['data'],
