@@ -17,6 +17,7 @@ export const dashboardGraph = createApi({
 		getEventList: builder.query({
 			query: () => '/event-list-dashboard',
 			providesTags: ['EventList'],
+			refetchOnMountOrArgChange: true,
 		}),
 		getAttendanceList: builder.query({
 			query: () => '/attendance-list-dashboard',
@@ -34,6 +35,10 @@ export const dashboardGraph = createApi({
 			query: () => '/grade-wise-employee',
 			providesTags: ['GradeWiseEmploye'],
 		}),
+		merge: builder.query({
+			query: () => '/merge-endpoint',
+			providesTags: ['Merge'],
+		}),
 	}),
 });
 
@@ -43,4 +48,5 @@ export const {
 	useGetDesignationWiseEmployeeQuery,
 	useGetAgeWiseEmployeeQuery,
 	useGetGradeWiseEmployeeQuery,
+	useMergeQuery,
 } = dashboardGraph;

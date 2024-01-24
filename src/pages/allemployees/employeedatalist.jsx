@@ -46,6 +46,7 @@ import { useNavigate } from 'react-router-dom';
 import Loader from '../../assets/images/loader.gif';
 import { BeatLoader } from 'react-spinners';
 import { saveAs } from 'file-saver';
+import { useGetEmployeeListQuery } from './features/allEmployeeList.js';
 
 const CssWrapper = styled.div`
 	.p-datatable-wrapper::-webkit-scrollbar {
@@ -122,6 +123,29 @@ const EmployeeDataList = () => {
 	const [fromLoader, setFromLoader] = useState(false);
 	const { isOpen, onOpen, onClose } = useDisclosure();
 	const [isLoadingModal, setIsLoadingModal] = useState(false);
+	// const { data: empList, error: errorEmpList } = useGetEmployeeListQuery(
+	// 	rows,
+	// 	first
+	// );
+
+	// console.log(empList);
+	// const { refetch } = useGetEmployeeListQuery(undefined, {
+	// 	refetchOnMountOrArgChange: true,
+	// });
+
+	// useEffect(() => {
+	// 	if (errorEmpList) {
+	// 		const response = errorEmpList.response;
+	// 		if ((response && response.status === 401) || 400) {
+	// 			// Token expired, navigate to login page
+	// 			navigate('/login');
+	// 		}
+	// 	}
+	// }, [errorEmpList, navigate]);
+
+	// useEffect(() => {
+	// 	refetch();
+	// }, [first, rows, msg, isLoadingModal]);
 
 	const cols = [
 		{ field: 'emp_code', header: 'Emp Code' },
@@ -203,7 +227,7 @@ const EmployeeDataList = () => {
 			import('jspdf-autotable').then(() => {
 				const doc = new jsPDF.default(0, 0);
 
-				doc.autoTable(exportColumns, empList.data);
+				doc.autoTable(exportColumns, empList?.data);
 				doc.save('empList.pdf');
 			});
 		});
@@ -211,7 +235,7 @@ const EmployeeDataList = () => {
 
 	const exportExcel = () => {
 		import('xlsx').then((xlsx) => {
-			const worksheet = xlsx.utils.json_to_sheet(empList.data);
+			const worksheet = xlsx.utils.json_to_sheet(empList?.data);
 			const workbook = {
 				Sheets: { data: worksheet },
 				SheetNames: ['data'],

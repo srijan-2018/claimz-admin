@@ -66,6 +66,8 @@ const Dashboard = () => {
 		}
 	}, [errorEventList, navigate]);
 
+	console.log(eventList, 'eventList');
+
 	return (
 		<Box>
 			<Box>

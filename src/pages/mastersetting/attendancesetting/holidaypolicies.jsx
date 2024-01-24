@@ -35,6 +35,7 @@ import { useNavigate } from 'react-router-dom';
 import Loader from '../../../assets/images/loader.gif';
 import { BeatLoader } from 'react-spinners';
 import UserLogo from '../../../assets/images/no-image.png';
+import { useGetEventListQuery } from '../../dashboard/features/dashboardGraphApi';
 
 const CssWrapper = styled.div`
 	.p-datatable-wrapper::-webkit-scrollbar {
@@ -111,6 +112,9 @@ const HolidayPolicies = () => {
 			constraints: [{ value: null, matchMode: FilterMatchMode.EQUALS }],
 		},
 	});
+	const { refetch } = useGetEventListQuery(undefined, {
+		refetchOnMountOrArgChange: true,
+	});
 
 	useEffect(() => {
 		let token = localStorage.getItem('token');
@@ -139,6 +143,10 @@ const HolidayPolicies = () => {
 			}
 		};
 		holidayPolicy();
+	}, [msg]);
+
+	useEffect(() => {
+		refetch();
 	}, [msg]);
 
 	const ActionTemplate = (rowData) => {
