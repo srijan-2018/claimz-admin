@@ -29,7 +29,9 @@ const KycDetails = ({ formData, setFormData }) => {
 					<Input
 						type='text'
 						placeholder='PAN'
-						value={formData.pan_no}
+						value={
+							formData.pan_no === 'null' ? '' : formData.pan_no
+						}
 						onChange={(event) =>
 							setFormData({
 								...formData,
@@ -49,7 +51,11 @@ const KycDetails = ({ formData, setFormData }) => {
 					<Input
 						type='number'
 						placeholder='Mobile No'
-						value={formData.mobile_no}
+						value={
+							formData.mobile_no === 'null'
+								? ''
+								: formData.mobile_no
+						}
 						onChange={(event) =>
 							setFormData({
 								...formData,
@@ -64,7 +70,11 @@ const KycDetails = ({ formData, setFormData }) => {
 					<Input
 						type='text'
 						placeholder='Aadhar No'
-						value={formData.aadhar_no}
+						value={
+							formData.aadhar_no === 'null'
+								? ''
+								: formData.aadhar_no
+						}
 						onChange={(event) =>
 							setFormData({
 								...formData,
@@ -90,7 +100,9 @@ const KycDetails = ({ formData, setFormData }) => {
 					<Input
 						type='email'
 						placeholder='Mail Id'
-						value={formData.mail_id}
+						value={
+							formData.mail_id === 'null' ? '' : formData.mail_id
+						}
 						onChange={(event) =>
 							setFormData({
 								...formData,
@@ -110,7 +122,11 @@ const KycDetails = ({ formData, setFormData }) => {
 					<Input
 						type='Text'
 						placeholder='Emergency Cont No'
-						value={formData.emergency_cont_no}
+						value={
+							formData.emergency_cont_no === 'null'
+								? ''
+								: formData.emergency_cont_no
+						}
 						onChange={(event) =>
 							setFormData({
 								...formData,
@@ -125,7 +141,11 @@ const KycDetails = ({ formData, setFormData }) => {
 					<Input
 						type='Text'
 						placeholder='Passport No'
-						value={formData.passport_no}
+						value={
+							formData.passport_no === 'null'
+								? ''
+								: formData.passport_no
+						}
 						onChange={(event) =>
 							setFormData({
 								...formData,

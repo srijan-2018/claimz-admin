@@ -29,7 +29,11 @@ const BankDetails = ({ formData, setFormData }) => {
 					<Input
 						type='text'
 						placeholder='Bank Name '
-						value={formData.bank_name}
+						value={
+							formData.bank_name === 'null'
+								? ''
+								: formData.bank_name
+						}
 						onChange={(event) =>
 							setFormData({
 								...formData,
@@ -49,7 +53,11 @@ const BankDetails = ({ formData, setFormData }) => {
 					<Input
 						type='text'
 						placeholder='Bank Account No'
-						value={formData.bank_account_no}
+						value={
+							formData.bank_account_no === 'null'
+								? ''
+								: formData.bank_account_no
+						}
 						onChange={(event) =>
 							setFormData({
 								...formData,
@@ -64,7 +72,9 @@ const BankDetails = ({ formData, setFormData }) => {
 					<Input
 						type='text'
 						placeholder='Branch Name'
-						value={formData.branch}
+						value={
+							formData.branch === 'null' ? '' : formData.branch
+						}
 						onChange={(event) =>
 							setFormData({
 								...formData,
@@ -79,7 +89,11 @@ const BankDetails = ({ formData, setFormData }) => {
 					<Input
 						type='text'
 						placeholder='IFSC code'
-						value={formData.ifsc_code}
+						value={
+							formData.ifsc_code === 'null'
+								? ''
+								: formData.ifsc_code
+						}
 						onChange={(event) =>
 							setFormData({
 								...formData,

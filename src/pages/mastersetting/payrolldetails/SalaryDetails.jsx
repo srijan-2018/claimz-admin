@@ -1,8 +1,6 @@
 import {
 	Box,
 	Button,
-	Card,
-	CardBody,
 	Divider,
 	FormControl,
 	FormLabel,
@@ -43,7 +41,7 @@ const SalaryDetails = () => {
 	const [companyLogo, setCompanyLogo] = useState('');
 	const [CTC, setCTC] = useState();
 	const basic = CTC / 2;
-	const [deductionformData, setDeductionformData] = useState('');
+	const [deductionformData] = useState('');
 	const [perquisitsComponents, setPerquisitsComponents] = useState([]);
 	const [profitComponents, setProfitComponents] = useState([]);
 	const [earningComponents, setEarnignComponents] = useState([]);
@@ -360,6 +358,7 @@ const SalaryDetails = () => {
 						name={data.salary_component}
 						value={data.input}
 						className='handleScroll'
+						bg='white'
 						onChange={(e) => handleEarningInputChange(key, e)}
 					/>
 					<small>{`${dependOnTxt}*${data.percentage}% > ${data.inputPercentage}%`}</small>
@@ -634,6 +633,7 @@ const SalaryDetails = () => {
 						<FormControl>
 							<FormLabel>Employee Name</FormLabel>
 							<Input
+								bg='white'
 								type='text'
 								placeholder='Employee Name'
 								value={employeeName}
@@ -646,6 +646,7 @@ const SalaryDetails = () => {
 						<FormControl>
 							<FormLabel>Employee Code</FormLabel>
 							<Input
+								bg='white'
 								type='text'
 								placeholder='Employee Code'
 								value={employeeCode}
@@ -658,6 +659,7 @@ const SalaryDetails = () => {
 						<FormControl>
 							<FormLabel>Date of Joining</FormLabel>
 							<Input
+								bg='white'
 								type='date'
 								placeholder='Date of Joining'
 								value={dateOfJoining}
@@ -670,6 +672,7 @@ const SalaryDetails = () => {
 						<FormControl>
 							<FormLabel>Account Number</FormLabel>
 							<Input
+								bg='white'
 								type='text'
 								placeholder='Account Number'
 								value={accountNumber}
@@ -682,33 +685,37 @@ const SalaryDetails = () => {
 						<FormControl>
 							<FormLabel>PF A/C Number</FormLabel>
 							<Input
+								bg='white'
 								type='text'
 								placeholder='PF A/C Number'
-								value={PFNumber}
+								value={PFNumber === 'null' ? '0' : PFNumber}
 								onChange={(e) => setPFNumber(e.target.value)}
 							/>
 						</FormControl>
 						<FormControl>
 							<FormLabel>UAN Number</FormLabel>
 							<Input
+								bg='white'
 								type='text'
 								placeholder='UAN Number'
-								value={UANNumber}
+								value={UANNumber === 'null' ? '0' : UANNumber}
 								onChange={(e) => setUANNumber(e.target.value)}
 							/>
 						</FormControl>
 						<FormControl>
 							<FormLabel>ESI Number</FormLabel>
 							<Input
+								bg='white'
 								type='text'
 								placeholder='ESI Number'
-								value={ESINumber}
+								value={ESINumber === 'null' ? '0' : ESINumber}
 								onChange={(e) => setESINumber(e.target.value)}
 							/>
 						</FormControl>
 						<FormControl>
 							<FormLabel>Company Name</FormLabel>
 							<Input
+								bg='white'
 								type='text'
 								placeholder='Company Name'
 								value={companyName}
@@ -718,6 +725,7 @@ const SalaryDetails = () => {
 						<FormControl>
 							<FormLabel>Company Address</FormLabel>
 							<Input
+								bg='white'
 								type='text'
 								placeholder='Company Address'
 								value={companyAddress}
@@ -729,6 +737,7 @@ const SalaryDetails = () => {
 						<FormControl>
 							<FormLabel>Company Logo</FormLabel>
 							<Input
+								bg='white'
 								type='file'
 								placeholder='Logo'
 								p='0px'
@@ -763,6 +772,7 @@ const SalaryDetails = () => {
 								Monthly CTC :
 							</FormLabel>
 							<Input
+								bg='white'
 								type='number'
 								placeholder='Enter Monthly CTC'
 								className='handleScroll'
@@ -779,6 +789,7 @@ const SalaryDetails = () => {
 									Updated Monthly CTC :
 								</FormLabel>
 								<Input
+									bg='white'
 									type='number'
 									className='handleScroll'
 									value={updatedCtc}
@@ -791,7 +802,8 @@ const SalaryDetails = () => {
 							<Box
 								p='5px 15px'
 								borderRadius='15px'
-								boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'>
+								boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
+								bg='white'>
 								<FormControl>
 									<FormLabel>
 										Provident Fund Capping :
@@ -864,7 +876,8 @@ const SalaryDetails = () => {
 								boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
 								w='32%'
 								p='15px'
-								borderRadius='5px'>
+								borderRadius='5px'
+								bg='white'>
 								<Box
 									display='flex'
 									gap='10px'
@@ -937,7 +950,8 @@ const SalaryDetails = () => {
 								boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
 								w='32%'
 								p='15px'
-								borderRadius='5px'>
+								borderRadius='5px'
+								bg='white'>
 								<Box
 									display='flex'
 									gap='10px'
@@ -998,7 +1012,8 @@ const SalaryDetails = () => {
 								boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
 								w='32%'
 								p='15px'
-								borderRadius='5px'>
+								borderRadius='5px'
+								bg='white'>
 								<Box
 									display='flex'
 									gap='10px'
@@ -1065,7 +1080,8 @@ const SalaryDetails = () => {
 								boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
 								w='32%'
 								p='15px'
-								borderRadius='5px'>
+								borderRadius='5px'
+								bg='white'>
 								<Box
 									display='flex'
 									gap='10px'
@@ -1129,7 +1145,8 @@ const SalaryDetails = () => {
 						boxShadow='rgba(0, 0, 0, 0.24) 0px 3px 8px'
 						p='15px'
 						mt='24px'
-						borderRadius='5px'>
+						borderRadius='5px'
+						bg='white'>
 						{Object.entries(filteredEmployeeOther).map(
 							([key, value]) => (
 								<Box key={key}>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Image, Text, Button } from '@chakra-ui/react';
+import { Box, Image, Text, Button, useToast } from '@chakra-ui/react';
 import { FilterMatchMode, FilterOperator } from 'primereact/api';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -75,11 +75,21 @@ const CssWrapper = styled.div`
 
 const PendingList = () => {
 	const navigate = useNavigate();
+	const toast = useToast();
 	let token = localStorage.getItem('token');
 	const [first, setFirst] = useState(0);
 	const [rows, setRows] = useState(10);
 	const [empList, setEmpList] = useState();
 	const [loader, setLoader] = useState(false);
+
+	function toastCall() {
+		return toast({
+			title: 'Something Went wrong',
+			status: 'error',
+			duration: 3000,
+			isClosable: true,
+		});
+	}
 
 	useEffect(() => {
 		const formDataValue = async () => {
@@ -100,7 +110,8 @@ const PendingList = () => {
 					setEmpList(data.data);
 					setLoader(false);
 				} else {
-					navigate('/login');
+					toastCall();
+					setLoader(false);
 				}
 			} catch (error) {
 				navigate('/login');
@@ -161,7 +172,6 @@ const PendingList = () => {
 			'End Half Day': leaveEntry.end_half_day,
 			Description: leaveEntry.description,
 			'leave Type': leaveEntry.leave_types,
-			'Approved By': leaveEntry.approved_by,
 			'Emp Code': leaveEntry.emp_code,
 		}));
 		const exportExcel = () => {
