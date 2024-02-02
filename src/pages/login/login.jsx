@@ -28,6 +28,7 @@ const Login = () => {
 	const [email, setEmail] = useState('');
 	const [password, setpassword] = useState('');
 	const [loading, setLoading] = useState(false);
+	const [passwordView, setPasswordView] = useState(true);
 
 	useEffect(() => {
 		userRef.current.focus();
@@ -136,17 +137,30 @@ const Login = () => {
 								We'll never share your email.
 							</FormHelperText>
 						</FormControl>
-						<FormControl mb='20px'>
+						<FormControl mb='20px' pos='relative'>
 							<FormLabel fontSize='1.4rem' color='gray'>
 								Password
 							</FormLabel>
 							<Input
-								type='password'
+								type={passwordView ? 'password' : 'text'}
 								id='password'
 								onChange={(e) => setpassword(e.target.value)}
 								value={password}
 								required
 							/>
+							<Box
+								position='absolute'
+								right='10px'
+								bottom='25px'
+								onClick={() => {
+									setPasswordView(!passwordView);
+								}}>
+								{passwordView ? (
+									<i className='fa-solid fa-eye-slash'></i>
+								) : (
+									<i className='fa-solid fa-eye'></i>
+								)}
+							</Box>
 							<FormHelperText fontSize='1.2rem'>
 								We'll never share your password.
 							</FormHelperText>
