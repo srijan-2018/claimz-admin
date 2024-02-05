@@ -171,7 +171,8 @@ const PendingList = () => {
 			'Start Half Day': leaveEntry.start_half_day,
 			'End Half Day': leaveEntry.end_half_day,
 			Description: leaveEntry.description,
-			'leave Type': leaveEntry.leave_types,
+			'Leave Type': leaveEntry.leave_types,
+			'Leave Dates': leaveEntry.dates.slice(1, -1),
 			'Emp Code': leaveEntry.emp_code,
 		}));
 		const exportExcel = () => {
