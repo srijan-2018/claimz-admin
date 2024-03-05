@@ -293,6 +293,11 @@ const DepartmentSettingDataTable = () => {
 			}
 		};
 
+		const data = rowData;
+
+		// console.log(data.department.department_name, 'rowData');
+		// console.log(products[0].department.department_name, 'products');
+
 		return (
 			<>
 				<Button
@@ -351,6 +356,13 @@ const DepartmentSettingDataTable = () => {
 										onChange={(e) =>
 											setDepartmentName(e.target.value)
 										}
+										isDisabled={
+											data.department.department_name ===
+											products[0].department
+												.department_name
+												? true
+												: false
+										}
 										required
 									/>
 								</FormControl>
@@ -363,6 +375,13 @@ const DepartmentSettingDataTable = () => {
 									</FormLabel>
 									{/* <Input type='text' value={hod} onChange={(e) => setHod(e.target.value)} required /> */}
 									<Select
+										isDisabled={
+											data.department.department_name ===
+											products[0].department
+												.department_name
+												? true
+												: false
+										}
 										placeholder='Select option'
 										value={hod}
 										onChange={(e) => setHod(e.target.value)}
@@ -378,7 +397,14 @@ const DepartmentSettingDataTable = () => {
 										})}
 									</Select>
 								</FormControl>
+
 								<Button
+									isDisabled={
+										data.department.department_name ===
+										products[0].department.department_name
+											? true
+											: false
+									}
 									disabled={isLoading}
 									isLoading={isLoading}
 									spinner={

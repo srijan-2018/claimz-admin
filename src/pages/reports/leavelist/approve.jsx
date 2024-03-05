@@ -167,16 +167,19 @@ const Approve = () => {
 	};
 
 	const RenderHeader = () => {
-		const filteredData = empList?.data?.map((leaveEntry) => ({
-			'Employee Name': leaveEntry.emp_name,
-			'Start Half Day': leaveEntry.start_half_day,
-			'End Half Day': leaveEntry.end_half_day,
-			Description: leaveEntry.description,
-			'Leave Type': leaveEntry.leave_types,
-			'Leave Dates': leaveEntry.dates.slice(1, -1),
-			'Approved By': leaveEntry.approve_by_name,
-			'Emp Code': leaveEntry.emp_code,
-		}));
+		const filteredData = empList?.data?.flatMap((leaveEntry) => {
+			const dates = leaveEntry.dates.replace(/[\[\]"]+/g, '').split(','); // Remove square brackets and double quotes, then split dates
+			return dates.map((date) => ({
+				'Employee Name': leaveEntry.emp_name,
+				'Start Half Day': leaveEntry.start_half_day,
+				'End Half Day': leaveEntry.end_half_day,
+				Description: leaveEntry.description,
+				'Leave Type': leaveEntry.leave_types,
+				'Leave Date': date.trim(), // Use the current date after trimming spaces
+				'Approved By': leaveEntry.approve_by_name,
+				'Emp Code': leaveEntry.emp_code,
+			}));
+		});
 		const exportExcel = () => {
 			import('xlsx').then((xlsx) => {
 				const worksheet = xlsx.utils.json_to_sheet(filteredData);
@@ -192,6 +195,7 @@ const Approve = () => {
 				saveAsExcelFile(excelBuffer, 'empList_approve');
 			});
 		};
+
 		const saveAsExcelFile = (buffer, fileName) => {
 			import('file-saver').then((module) => {
 				if (module && module.default) {
