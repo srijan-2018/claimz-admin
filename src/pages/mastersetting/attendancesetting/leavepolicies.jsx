@@ -21,7 +21,7 @@ import { BeatLoader } from 'react-spinners';
 
 const LeavePolicies = () => {
 	const navigate = useNavigate();
-	const [progress, setProgress] = useState(38);
+	const [progress, setProgress] = useState(31);
 	const token = localStorage.getItem('token');
 	const toast = useToast();
 	const [msg, setMsg] = useState();
@@ -409,7 +409,7 @@ const LeavePolicies = () => {
 						alignItems='center'
 						position='absolute'
 						top='-12px'
-						left='35%'>
+						left='28%'>
 						<Box
 							bg='claimzIconGreentColor'
 							w='30px'
@@ -429,14 +429,13 @@ const LeavePolicies = () => {
 							Leave Policies
 						</Box>
 					</Box>
-
 					<Box
 						display='flex'
 						flexDirection='column'
 						alignItems='center'
 						position='absolute'
 						top='-12px'
-						left='60%'>
+						left='45%'>
 						<Box
 							bg='claimzIconGreentColor'
 							w='30px'
@@ -447,6 +446,33 @@ const LeavePolicies = () => {
 							justifyContent='center'
 							alignItems='center'>
 							3
+						</Box>
+						<Box
+							as='span'
+							color='claimzTextBlackColor'
+							fontWeight='600'
+							fontSize='1.5rem'>
+							Leave Correction
+						</Box>
+					</Box>
+
+					<Box
+						display='flex'
+						flexDirection='column'
+						alignItems='center'
+						position='absolute'
+						top='-12px'
+						left='63%'>
+						<Box
+							bg='claimzIconGreentColor'
+							w='30px'
+							h='30px'
+							color='white'
+							borderRadius='50px'
+							display='flex'
+							justifyContent='center'
+							alignItems='center'>
+							4
 						</Box>
 						<Box
 							as='span'
@@ -473,7 +499,7 @@ const LeavePolicies = () => {
 							display='flex'
 							justifyContent='center'
 							alignItems='center'>
-							4
+							5
 						</Box>
 						<Box
 							as='span'
@@ -1245,7 +1271,7 @@ const LeavePolicies = () => {
 						}}
 						onClick={() =>
 							customNavigate(
-								'/master-setting/attendance-settings/holiday-policies'
+								'/master-setting/attendance-settings/leave-correction'
 							)
 						}>
 						Next

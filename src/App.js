@@ -71,6 +71,7 @@ import Privetroute from './privetroute';
 import './App.css';
 import { Provider } from 'react-redux';
 import { store } from './app/store.js';
+import LeaveCorrection from './pages/mastersetting/attendancesetting/leaveCorrection.jsx';
 
 function App() {
 	return (
@@ -99,6 +100,10 @@ function App() {
 									<Route
 										path='leave-policies'
 										element={<LeavePolicies />}
+									/>
+									<Route
+										path='leave-correction'
+										element={<LeaveCorrection />}
 									/>
 									<Route
 										path='holiday-policies'

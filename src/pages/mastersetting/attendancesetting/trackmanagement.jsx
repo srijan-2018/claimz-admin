@@ -62,7 +62,7 @@ const TrackManagement = () => {
 						alignItems='center'
 						position='absolute'
 						top='-12px'
-						left='35%'>
+						left='28%'>
 						<Box
 							bg='claimzIconGreentColor'
 							w='30px'
@@ -82,14 +82,13 @@ const TrackManagement = () => {
 							Leave Policies
 						</Box>
 					</Box>
-
 					<Box
 						display='flex'
 						flexDirection='column'
 						alignItems='center'
 						position='absolute'
 						top='-12px'
-						left='60%'>
+						left='45%'>
 						<Box
 							bg='claimzIconGreentColor'
 							w='30px'
@@ -100,6 +99,33 @@ const TrackManagement = () => {
 							justifyContent='center'
 							alignItems='center'>
 							3
+						</Box>
+						<Box
+							as='span'
+							color='claimzTextBlackColor'
+							fontWeight='600'
+							fontSize='1.5rem'>
+							Leave Correction
+						</Box>
+					</Box>
+
+					<Box
+						display='flex'
+						flexDirection='column'
+						alignItems='center'
+						position='absolute'
+						top='-12px'
+						left='63%'>
+						<Box
+							bg='claimzIconGreentColor'
+							w='30px'
+							h='30px'
+							color='white'
+							borderRadius='50px'
+							display='flex'
+							justifyContent='center'
+							alignItems='center'>
+							4
 						</Box>
 						<Box
 							as='span'
@@ -126,7 +152,7 @@ const TrackManagement = () => {
 							display='flex'
 							justifyContent='center'
 							alignItems='center'>
-							4
+							5
 						</Box>
 						<Box
 							as='span'

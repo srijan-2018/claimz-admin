@@ -6,6 +6,7 @@ import WeekofVariant from './weekofvariant';
 import LeavePolicies from './leavepolicies';
 import HolidayPolicies from './holidaypolicies';
 import TrackManagement from './trackmanagement';
+import LeaveCorrection from './leaveCorrection';
 
 const AttendanceSettings = () => {
 	let location = useLocation();
@@ -25,6 +26,10 @@ const AttendanceSettings = () => {
 			{location.pathname ===
 				'/master-setting/attendance-settings/leave-policies' && (
 				<LeavePolicies />
+			)}
+			{location.pathname ===
+				'/master-setting/attendance-settings/leave-correction' && (
+				<LeaveCorrection />
 			)}
 			{location.pathname ===
 				'/master-setting/attendance-settings/holiday-policies' && (

@@ -84,11 +84,11 @@ const CssWrapper = styled.div`
 	}
 `;
 
-const HolidayPolicies = () => {
+const LeaveCorrection = () => {
 	const navigate = useNavigate();
 	const token = localStorage.getItem('token');
 	const [loader, setLoader] = useState(false);
-	const [progress, setProgress] = useState(70);
+	const [progress, setProgress] = useState(50);
 	const [holiday, setHoliday] = useState();
 	const [msg, setMsg] = useState();
 	const [isLoading, setIsLoading] = useState(false);
@@ -122,7 +122,7 @@ const HolidayPolicies = () => {
 			try {
 				setLoader(true);
 				const response1 = await fetch(
-					`${process.env.REACT_APP_API_URL}/holiday`,
+					`${process.env.REACT_APP_API_URL}/leave-balance-user`,
 					{
 						method: 'GET',
 						headers: {
@@ -152,11 +152,12 @@ const HolidayPolicies = () => {
 	const ActionTemplate = (rowData) => {
 		const toast = useToast();
 		const { isOpen, onOpen, onClose } = useDisclosure();
-		const [holiday, setHoliday] = useState(rowData.holiday);
-		const [holidayDate, setHolidayDate] = useState(rowData.holiday_date);
-		const [holidayImage, setHolidayImage] = useState(rowData.image);
-		const [selectedValue, setSelectedValue] = useState(rowData.type);
-		const [holidayId, setHolidayId] = useState(rowData.holiday_id);
+		const [balance, setBalance] = useState(rowData.leave_balance);
+		const [carry, setCarry] = useState(rowData.carry_forward);
+		const [encash, setEncash] = useState(rowData.encashment);
+		const [id, setId] = useState(rowData.ulu_id);
+
+		console.log(rowData, 'rowData');
 
 		function toastCall(data) {
 			return toast({
@@ -167,23 +168,18 @@ const HolidayPolicies = () => {
 			});
 		}
 
-		const handleSelectChange = (event) => {
-			setSelectedValue(event.target.value);
-		};
-
 		const updateHoliday = async (e) => {
 			e.preventDefault();
 			let formData = new FormData();
-			formData.append('holiday', holiday);
-			formData.append('holiday_date', holidayDate);
-			formData.append('holiday_image', holidayImage);
-			formData.append('type', selectedValue);
-			formData.append('id', holidayId);
+			formData.append('balance', balance);
+			formData.append('carry', carry);
+			formData.append('encash', encash);
+			formData.append('id', id);
 
 			try {
 				setIsLoading(true);
 				const response = await fetch(
-					`${process.env.REACT_APP_API_URL}/holiday-update`,
+					`${process.env.REACT_APP_API_URL}/leave-balance-post`,
 					{
 						method: 'POST',
 						body: formData,
@@ -245,7 +241,7 @@ const HolidayPolicies = () => {
 							</Box>
 						</DrawerHeader>
 
-						<DrawerBody>
+						<DrawerBody overflow='hidden'>
 							<Box
 								display='flex'
 								flexDirection='column'
@@ -265,27 +261,25 @@ const HolidayPolicies = () => {
 										justifyContent='space-between'
 										alignItems='center'>
 										<FormControl width='48%'>
-											<FormLabel>Holiday Name</FormLabel>
+											<FormLabel>Leave Balance</FormLabel>
 											<Input
 												type='text'
-												value={holiday}
-												placeholder='Enter Holiday Name'
+												value={balance}
+												placeholder='Enter Leave Balance'
 												onChange={(e) =>
-													setHoliday(e.target.value)
+													setBalance(e.target.value)
 												}
 												required
 											/>
 										</FormControl>
 										<FormControl width='48%'>
-											<FormLabel>Holiday Date</FormLabel>
+											<FormLabel>Carry Forward</FormLabel>
 											<Input
-												type='date'
-												value={holidayDate}
-												placeholder='Enter Holiday Date'
+												type='text'
+												value={carry}
+												placeholder='Enter Carry Forward'
 												onChange={(e) =>
-													setHolidayDate(
-														e.target.value
-													)
+													setCarry(e.target.value)
 												}
 												required
 											/>
@@ -297,75 +291,17 @@ const HolidayPolicies = () => {
 										display='flex'
 										justifyContent='space-between'
 										alignItems='center'>
-										<FormControl
-											w='48%'
-											sx={{
-												'& [type="file"]::-webkit-file-upload-button':
-													{
-														bg: '#F3F6FC',
-														color: 'inputplaceholderColor',
-														border: 'none',
-														borderRight:
-															'1px solid',
-														borderColor:
-															'inputStrokeColor',
-														borderRadius:
-															'2px 0px 0px 2px',
-														fontWeight: '500',
-														fontSize: '1.3rem',
-														height: '35px',
-														lineHeight: '2.2rem',
-														padding: '0px 10px',
-														marginRight: '15px',
-													},
-												'& [type="file"]::-webkit-file-upload-button:hover':
-													{
-														bg: 'dataTableRowBorder',
-													},
-											}}>
-											<FormLabel textTransform='capitalize'>
-												Holiday Image
-											</FormLabel>
-											<Input
-												type='file'
-												placeholder='Logo'
-												p='0px'
-												onChange={(event) =>
-													setHolidayImage(
-														event.target.files[0]
-													)
-												}
-												sx={{
-													'::file-selector-button': {
-														borderTop: 'none',
-														borderLeft: 'none',
-														borderBottom: 'none',
-														borderRight:
-															'1px solid',
-														borderRightColor:
-															'var(--chakra-colors-inputStrokeColor);',
-														outline: 'none',
-														mr: 2,
-														p: '12px 14px',
-														color: 'var(--chakra-colors-inputplaceholderColor)',
-														backgroundColor:
-															'#f3f3f3',
-													},
-												}}
-											/>
-										</FormControl>
 										<FormControl width='48%'>
-											<FormLabel>Holiday Type</FormLabel>
-											<Select
-												value={selectedValue}
-												onChange={handleSelectChange}>
-												<option value='common'>
-													Common
-												</option>
-												<option value='optional'>
-													Optional
-												</option>
-											</Select>
+											<FormLabel>EncashMent</FormLabel>
+											<Input
+												type='text'
+												value={encash}
+												placeholder='Enter EncashMent'
+												onChange={(e) =>
+													setEncash(e.target.value)
+												}
+												required
+											/>
 										</FormControl>
 									</Box>
 
@@ -409,32 +345,6 @@ const HolidayPolicies = () => {
 		);
 	};
 
-	const imageBodyTemplate = (rowData) => {
-		const defaultImageUrl = UserLogo;
-
-		const handleImageError = (event) => {
-			event.target.src = defaultImageUrl;
-		};
-
-		return (
-			<Box
-				display='flex'
-				justifyContent='center'
-				alignItems='center'
-				m='0 auto'
-				height='40px'
-				width='40px'
-				border='4px solid #2d689b'
-				borderRadius='50px'>
-				<Image
-					src={rowData.image}
-					borderRadius='50px'
-					onError={handleImageError}
-				/>
-			</Box>
-		);
-	};
-
 	const onGlobalFilterChange = (event) => {
 		const value = event.target.value;
 		let _filters = { ...filters };
@@ -446,77 +356,8 @@ const HolidayPolicies = () => {
 
 	const RenderHeader = () => {
 		const value = filters['global'] ? filters['global'].value : '';
-		const toast = useToast();
-		const [holiday, setHoliday] = useState();
-		const [holidayDate, setHolidayDate] = useState();
-		const [holidayImage, setHolidayImage] = useState();
-		const [selectedValue, setSelectedValue] = useState('common');
-		const {
-			isOpen: modalIsOpen,
-			onOpen: modalOnOpen,
-			onClose: modalOnClose,
-		} = useDisclosure();
-
-		function toastCall() {
-			return toast({
-				title: 'Holiday Added Sucessfully',
-				status: 'success',
-				duration: 5000,
-				isClosable: true,
-			});
-		}
-		function toastCallError() {
-			return toast({
-				title: 'Holiday Add Request Failed',
-				status: 'error',
-				duration: 5000,
-				isClosable: true,
-			});
-		}
-
-		const handleSelectChange = (event) => {
-			setSelectedValue(event.target.value);
-		};
-
-		const addHoliday = async (e) => {
-			e.preventDefault();
-			let formData = new FormData();
-			formData.append('holiday', holiday);
-			formData.append('holiday_date', holidayDate);
-			formData.append('holiday_image', holidayImage);
-			formData.append('type', selectedValue);
-
-			try {
-				setIsLoading(true);
-				const response = await fetch(
-					`${process.env.REACT_APP_API_URL}/holiday-post`,
-					{
-						method: 'POST',
-						body: formData,
-						headers: {
-							Authorization: `Bearer ${token}`,
-						},
-					}
-				);
-
-				if (response.ok) {
-					toastCall();
-					setMsg(!msg);
-					setIsLoading(false);
-					modalOnClose();
-				} else {
-					toastCallError();
-				}
-			} catch (error) {
-				toastCallError();
-			}
-		};
-
 		return (
-			<Box
-				display='flex'
-				justifyContent='space-between'
-				alignItems='center'>
+			<Box display='flex' justifyContent='end' alignItems='center'>
 				<Box
 					as='span'
 					className='p-input-icon-left'
@@ -532,212 +373,6 @@ const HolidayPolicies = () => {
 						w='50%'
 					/>
 				</Box>
-				<Box>
-					<Button
-						bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-						boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-						borderRadius='10px'
-						p='20px'
-						fontSize='1.6rem'
-						color='white'
-						_hover={{
-							bgGradient:
-								'linear(180deg, #2267A2 0%, #0D4675 100%)',
-						}}
-						_active={{
-							bgGradient:
-								'linear(180deg, #2267A2 0%, #0D4675 100%)',
-						}}
-						_focus={{
-							bgGradient:
-								'linear(180deg, #2267A2 0%, #0D4675 100%)',
-						}}
-						onClick={modalOnOpen}>
-						Add Holiday
-					</Button>
-				</Box>
-
-				<Modal isOpen={modalIsOpen} onClose={modalOnClose} isCentered>
-					<ModalOverlay bg='rgba(0,0,0,0.2)' />
-					<ModalContent minW='50%' h='50vh'>
-						<ModalHeader
-							pt='24px'
-							pb='15px'
-							display='flex'
-							justifyContent='space-between'
-							alignItems='center'>
-							<Box
-								display='-webkit-inline-box'
-								borderBottom='3px solid var(--chakra-colors-claimzBorderColor)'
-								pb='10px'>
-								<Text
-									background='linear-gradient(180deg, #2770AE 0%, #01325B 100%)'
-									backgroundClip='text'
-									fontWeight='700'
-									fontSize='28px'
-									lineHeight='36px'>
-									Add Holiday List
-								</Text>
-							</Box>
-						</ModalHeader>
-						<ModalCloseButton size='lg' />
-						<ModalBody>
-							<Box p='0px 0px 20px'>
-								<form
-									style={{
-										width: '100%',
-										display: 'flex',
-										flexDirection: 'column',
-										alignItems: 'end',
-									}}
-									onSubmit={addHoliday}>
-									<Box
-										w='100%'
-										mb='10px'
-										display='flex'
-										justifyContent='space-between'
-										alignItems='center'>
-										<FormControl width='48%'>
-											<FormLabel>Holiday Name</FormLabel>
-											<Input
-												type='text'
-												value={holiday}
-												placeholder='Enter Holiday Name'
-												onChange={(e) =>
-													setHoliday(e.target.value)
-												}
-												required
-											/>
-										</FormControl>
-										<FormControl width='48%'>
-											<FormLabel>Holiday Date</FormLabel>
-											<Input
-												type='date'
-												value={holidayDate}
-												placeholder='Enter Holiday Date'
-												onChange={(e) =>
-													setHolidayDate(
-														e.target.value
-													)
-												}
-												required
-											/>
-										</FormControl>
-									</Box>
-									<Box
-										w='100%'
-										mb='10px'
-										display='flex'
-										justifyContent='space-between'
-										alignItems='center'>
-										<FormControl
-											w='48%'
-											sx={{
-												'& [type="file"]::-webkit-file-upload-button':
-													{
-														bg: '#F3F6FC',
-														color: 'inputplaceholderColor',
-														border: 'none',
-														borderRight:
-															'1px solid',
-														borderColor:
-															'inputStrokeColor',
-														borderRadius:
-															'2px 0px 0px 2px',
-														fontWeight: '500',
-														fontSize: '1.3rem',
-														height: '35px',
-														lineHeight: '2.2rem',
-														padding: '0px 10px',
-														marginRight: '15px',
-													},
-												'& [type="file"]::-webkit-file-upload-button:hover':
-													{
-														bg: 'dataTableRowBorder',
-													},
-											}}>
-											<FormLabel textTransform='capitalize'>
-												Holiday Image
-											</FormLabel>
-											<Input
-												type='file'
-												placeholder='Logo'
-												p='0px'
-												onChange={(event) =>
-													setHolidayImage(
-														event.target.files[0]
-													)
-												}
-												sx={{
-													'::file-selector-button': {
-														borderTop: 'none',
-														borderLeft: 'none',
-														borderBottom: 'none',
-														borderRight:
-															'1px solid',
-														borderRightColor:
-															'var(--chakra-colors-inputStrokeColor);',
-														outline: 'none',
-														mr: 2,
-														p: '12px 14px',
-														color: 'var(--chakra-colors-inputplaceholderColor)',
-														backgroundColor:
-															'#f3f3f3',
-													},
-												}}
-											/>
-										</FormControl>
-										<FormControl width='48%'>
-											<FormLabel>Holiday Type</FormLabel>
-											<Select
-												value={selectedValue}
-												onChange={handleSelectChange}>
-												<option value='common'>
-													Common
-												</option>
-												<option value='optional'>
-													Optional
-												</option>
-											</Select>
-										</FormControl>
-									</Box>
-
-									<Button
-										disabled={isLoading}
-										isLoading={isLoading}
-										spinner={
-											<BeatLoader
-												size={8}
-												color='white'
-											/>
-										}
-										type='submit'
-										bgGradient='linear(180deg, #2267A2 0%, #0D4675 100%)'
-										boxShadow='0px 4px 4px rgba(0, 0, 0, 0.25)'
-										borderRadius='10px'
-										p='20px 20px'
-										fontSize='1.6rem'
-										color='white'
-										mt='20px'
-										_hover={{
-											bgGradient:
-												'linear(180deg, #2267A2 0%, #0D4675 100%)',
-										}}
-										_active={{
-											bgGradient:
-												'linear(180deg, #2267A2 0%, #0D4675 100%)',
-										}}
-										_focus={{
-											bgGradient:
-												'linear(180deg, #2267A2 0%, #0D4675 100%)',
-										}}>
-										Add Holiday
-									</Button>
-								</form>
-							</Box>
-						</ModalBody>
-					</ModalContent>
-				</Modal>
 			</Box>
 		);
 	};
@@ -920,32 +555,45 @@ const HolidayPolicies = () => {
 							header={header}
 							filters={filters}
 							onFilter={(e) => setFilters(e.filters)}
-							dataKey='department.id'
+							dataKey='ulu_id'
 							tableStyle={{ minWidth: '50rem' }}>
 							<Column
-								field='holiday'
-								header='Holiday '
+								field='emp_name'
+								header='Name '
 								sortable
 								bodyStyle={{ textAlign: 'center' }}
-								style={{ width: '20%' }}></Column>
+								style={{ width: '15%' }}></Column>
 							<Column
-								field='holiday_date'
-								header='Data'
+								field='emp_code'
+								header='Employee Code'
 								sortable
 								bodyStyle={{ textAlign: 'center' }}
-								style={{ width: '20%' }}></Column>
+								style={{ width: '15%' }}></Column>
 							<Column
-								field='type'
-								header='Holiday Type'
+								field='carry_forward'
+								header='Carry Forward'
 								sortable
 								bodyStyle={{ textAlign: 'center' }}
-								style={{ width: '20%' }}></Column>
+								style={{ width: '15%' }}></Column>
 							<Column
-								field='image'
-								header='Image'
-								body={imageBodyTemplate}
+								field='encashment'
+								header='Encashment'
+								sortable
 								bodyStyle={{ textAlign: 'center' }}
-								style={{ width: '20%' }}></Column>
+								style={{ width: '15%' }}></Column>
+							<Column
+								field='leave_balance'
+								header='Leave Balance'
+								sortable
+								bodyStyle={{ textAlign: 'center' }}
+								style={{ width: '15%' }}></Column>
+							<Column
+								field='leave_types'
+								header='Leave Types'
+								sortable
+								bodyStyle={{ textAlign: 'center' }}
+								style={{ width: '15%' }}></Column>
+
 							<Column
 								header='Edit'
 								body={ActionTemplate}
@@ -980,7 +628,7 @@ const HolidayPolicies = () => {
 						}}
 						onClick={() =>
 							navigate(
-								'/master-setting/attendance-settings/leave-correction'
+								'/master-setting/attendance-settings/leave-policies'
 							)
 						}>
 						Previous
@@ -1007,7 +655,7 @@ const HolidayPolicies = () => {
 						}}
 						onClick={() =>
 							navigate(
-								'/master-setting/attendance-settings/track-managment'
+								'/master-setting/attendance-settings/holiday-policies'
 							)
 						}>
 						Next
@@ -1018,4 +666,4 @@ const HolidayPolicies = () => {
 	);
 };
 
-export default HolidayPolicies;
+export default LeaveCorrection;
